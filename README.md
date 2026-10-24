@@ -5,6 +5,8 @@ Google Maps–style interface built on [Leaflet](https://leafletjs.com/), with
 a timeline for moving through the centuries and map markers for notable
 events and places, each linking to its Wikipedia article.
 
+**Live site:** https://timretout.github.io/bedford-history/
+
 ## Running it
 
 ```sh
@@ -12,6 +14,8 @@ npm install
 npm run dev      # http://localhost:5173
 npm run build    # typecheck and build into dist/
 ```
+
+Pushes to `main` deploy to GitHub Pages via `.github/workflows/deploy.yml`.
 
 ## How it fits together
 
