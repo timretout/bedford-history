@@ -282,11 +282,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* Base map choice: switches to OpenHistoricalMap for the selected event's year. */
 .map-layers { position: relative; background: var(--surface); }
+/* Sized like Leaflet's zoom buttons, which are larger on touch screens. */
 .map-layers-btn {
-  display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0;
-  border: 0; border-radius: 4px; background: none; color: var(--text-2);
+  display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; padding: 0;
+  border: 0; border-radius: 2px; background: none; color: var(--text-2);
 }
-.map-layers-btn svg { width: 20px; height: 20px; }
+.leaflet-touch .map-layers-btn { width: 30px; height: 30px; }
+.map-layers-btn svg { width: 18px; height: 18px; }
 .map-layers-btn:hover, .map-layers-btn[aria-expanded="true"] { background: var(--accent-soft); color: var(--accent-text); }
 .map-layers-menu {
   position: absolute; top: 0; right: calc(100% + 8px); width: 230px; margin: 0; padding: 8px 0;
