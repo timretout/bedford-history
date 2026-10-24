@@ -56,6 +56,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   left: calc(var(--panel-w) + var(--gap)); right: var(--gap);
   background: var(--surface); border-radius: 12px; box-shadow: var(--shadow);
   padding: 14px 20px 16px; overflow: hidden; /* Clips the track as it slides between eras. */
+  container-type: inline-size;
 }
 .leaflet-top.leaflet-right { top: 6px; right: 14px; z-index: 1001; } /* Above the era chips, for the base map menu. */
 .leaflet-bottom.leaflet-right { bottom: 150px; right: 14px; }
@@ -175,20 +176,44 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 /* Timeline */
-.tl-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tl-head {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "play now nav" "note note note";
+  align-items: center; gap: 4px 12px;
+}
 .tl-play {
-  flex: none; display: flex; align-items: center; justify-content: center;
+  grid-area: play; display: flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; border: 0; border-radius: 20px; background: var(--accent); color: #fff;
 }
 .tl-play:hover { background: var(--accent-text); }
-.tl-now { flex: 1; min-width: 200px; margin: 0; display: flex; align-items: baseline; gap: 10px; }
-.tl-year { font-size: 22px; font-weight: 500; }
-.tl-title { font-size: 15px; color: var(--text-2); }
-.tl-nav { display: flex; }
-.tl-note { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); }
-.tl-note strong { color: var(--text); font-weight: 500; }
+/* The heading keeps the same size whatever the event, so the timeline doesn't jump as you step through:
+   year and title on one line when there's room, else the year above at most two lines of title. */
+.tl-now { grid-area: now; min-width: 0; margin: 0; display: flex; align-items: baseline; gap: 10px; }
+.tl-year { flex: none; font-size: 22px; line-height: 28px; font-weight: 500; white-space: nowrap; }
+.tl-title { min-width: 0; font-size: 15px; line-height: 20px; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tl-nav { grid-area: nav; display: flex; }
+.tl-note {
+  grid-area: note; display: flex; align-items: center; gap: 4px; height: 28px; min-width: 0;
+  font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden;
+}
+.tl-note strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--text); font-weight: 500; }
+.tl-hint { overflow: hidden; text-overflow: ellipsis; }
+.tl-narrow { display: none; }
+@container (max-width: 639px) {
+  /* The arrows move down beside the zoom crumbs, leaving the title the width. */
+  .tl-head { grid-template-areas: "play now now" "note note nav"; }
+  .tl-now { flex-direction: column; align-items: stretch; gap: 0; height: 68px; }
+  .tl-year { overflow: hidden; text-overflow: ellipsis; }
+  .tl-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; white-space: normal; }
+  .tl-now.long-year .tl-year {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+    font-size: 18px; line-height: 24px; white-space: normal;
+  }
+  .tl-now.long-year .tl-title { -webkit-line-clamp: 1; }
+  .tl-wide { display: none; }
+  .tl-narrow { display: inline; }
+}
 .tl-crumb {
-  display: inline-flex; align-items: center; gap: 2px; padding: 4px 8px 4px 4px; border: 0; border-radius: 14px;
+  flex: none; display: inline-flex; align-items: center; gap: 2px; padding: 4px 8px 4px 4px; border: 0; border-radius: 14px;
   background: none; font: inherit; color: var(--accent-text);
 }
 .tl-crumb:hover { background: var(--accent-soft); }
@@ -206,11 +231,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .tl-track.zoom-in, .tl-track.zoom-out, .tl-track.slide-left, .tl-track.slide-right { animation: none; } }
 .tl-ticks { position: relative; height: calc(var(--tick-rows) * 14px); margin-bottom: 6px; }
 .tl-tick {
-  position: absolute; top: calc(var(--row) * 14px); transform: translateX(-50%);
+  position: absolute; bottom: calc(var(--row) * 14px); transform: translateX(-50%);
   width: 12px; height: 12px; padding: 0; border-radius: 50%;
   border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(60, 64, 67, 0.3);
 }
-.tl-tick.selected { width: 14px; height: 14px; top: calc(var(--row) * 14px - 1px); box-shadow: 0 0 0 2px var(--text); }
+.tl-tick.selected { width: 14px; height: 14px; bottom: calc(var(--row) * 14px - 1px); box-shadow: 0 0 0 2px var(--text); }
 .tl-tick.dimmed { opacity: 0.25; }
 .tl-band.dimmed { opacity: 0.4; }
 .tl-bands { display: flex; gap: 2px; height: 40px; }
@@ -230,7 +255,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 /* Phones: map on top, timeline and details below in normal flow. */
-@media (max-width: 767px) {
+@media (max-width: 899px) {
   .app { position: static; overflow: visible; display: flex; flex-direction: column; }
   .map { position: relative; height: 55vh; }
   .chips { top: 12px; left: 12px; right: 0; flex-wrap: nowrap; }
@@ -244,8 +269,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
     position: relative; left: auto; right: auto; bottom: auto; order: 2;
     margin: -24px 12px 0; padding: 12px 14px;
   }
-  .tl-hint { display: none; }
-  .tl-now { min-width: 0; flex-wrap: wrap; row-gap: 0; }
   .tl-band { font-size: 0; }
   .tl-band span { display: none; }
   .panel { position: static; order: 3; width: auto; box-shadow: none; margin-top: 12px; }

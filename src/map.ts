@@ -68,7 +68,7 @@ function saveBase(id: BaseId): void {
 function padding(): { paddingTopLeft: L.Point; paddingBottomRight: L.Point } {
   // The era chips can wrap onto several rows; leave room for a selected pin below them.
   const top = (document.getElementById('chips')?.getBoundingClientRect().bottom ?? 64) + 56;
-  if (!matchMedia('(min-width: 768px)').matches) {
+  if (!matchMedia('(min-width: 900px)').matches) {
     return { paddingTopLeft: L.point(24, top), paddingBottomRight: L.point(24, 24) };
   }
   const panel = document.getElementById('panel')?.offsetWidth ?? 0;

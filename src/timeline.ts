@@ -22,12 +22,17 @@ function tickRows(list: HistoryEvent[], position: (ev: HistoryEvent) => number):
   return rows;
 }
 
+const trackEvents = (zoom: Era | null) => (zoom ? events.filter((e) => e.era === zoom.id) : events);
+const trackPosition = (zoom: Era | null) => (zoom ? zoomedPosition : timelinePosition);
+const rowCount = (zoom: Era | null) => Math.max(0, ...tickRows(trackEvents(zoom), trackPosition(zoom)).values()) + 1;
+/** Every era gets as many tick rows as the busiest, so stepping between eras doesn't change the height. */
+const eraTickRows = Math.max(...eras.map(rowCount));
+
 /** Ticks and bands for every era, or for the periods of one era when zoomed in. */
 function track(zoom: Era | null): string {
-  const list = zoom ? events.filter((e) => e.era === zoom.id) : events;
-  const position = zoom ? zoomedPosition : timelinePosition;
+  const list = trackEvents(zoom);
+  const position = trackPosition(zoom);
   const rows = tickRows(list, position);
-  const rowCount = Math.max(0, ...rows.values()) + 1;
 
   let bands: string;
   if (!zoom) {
@@ -46,7 +51,7 @@ function track(zoom: Era | null): string {
   }
 
   return `
-    <div class="tl-ticks" style="--tick-rows:${rowCount}">
+    <div class="tl-ticks" style="--tick-rows:${zoom ? eraTickRows : rowCount(null)}">
       ${list.map((ev) => `<button type="button" class="tl-tick" data-event="${esc(ev.id)}"
           style="left:${position(ev)}%;--row:${rows.get(ev.id)};background:${eraOf(ev).color}"
           aria-label="${esc(`${ev.yearLabel}: ${ev.title}`)}" title="${esc(`${ev.yearLabel}: ${ev.title}`)}"></button>`).join('')}
@@ -58,7 +63,7 @@ function track(zoom: Era | null): string {
 /** Where the timeline is zoomed to, with links back out. */
 function crumbs(s: State): string {
   const era = s.era ? eraById.get(s.era)! : null;
-  if (!era) return '<span class="tl-hint">Stone Age to today · each era drawn at equal width · click an era to zoom in</span>';
+  if (!era) return '<span class="tl-hint"><span class="tl-wide">Stone Age to today · each era drawn at equal width · click an era to zoom in</span><span class="tl-narrow">Pick an era to zoom in</span></span>';
   const period = era.periods?.find((p) => p.id === s.period);
   const sep = '<span aria-hidden="true">›</span>';
   return `<button type="button" class="tl-crumb" data-zoom="all">${icons.left}All time</button> ${sep}
@@ -81,6 +86,7 @@ export function createTimeline(el: HTMLElement, store: Store, map: () => Pick<Ma
     <div class="tl-track"></div>`;
 
   const play = el.querySelector<HTMLButtonElement>('.tl-play')!;
+  const now = el.querySelector<HTMLElement>('.tl-now')!;
   const year = el.querySelector('.tl-year')!;
   const title = el.querySelector('.tl-title')!;
   const note = el.querySelector<HTMLElement>('.tl-note')!;
@@ -173,6 +179,13 @@ export function createTimeline(el: HTMLElement, store: Store, map: () => Pick<Ma
     }
   }, { passive: false });
 
+  // A year too long for its line on a narrow timeline takes two, leaving one for the title.
+  const fitYear = () => {
+    now.classList.remove('long-year');
+    now.classList.toggle('long-year', year.scrollWidth > year.clientWidth);
+  };
+  new ResizeObserver(fitYear).observe(now);
+
   function render(s: State): void {
     if (s.era !== zoomed) {
       const into = s.era ? eraById.get(s.era)! : null;
@@ -193,6 +206,8 @@ export function createTimeline(el: HTMLElement, store: Store, map: () => Pick<Ma
     const ev = selectedEvent(s);
     year.textContent = ev.yearLabel;
     title.textContent = ev.title;
+    now.title = `${ev.yearLabel}: ${ev.title}`;
+    fitYear();
     note.innerHTML = crumbs(s);
     const handle = trackEl.querySelector<HTMLElement>('.tl-handle')!;
     handle.style.left = `${(s.era ? zoomedPosition : timelinePosition)(ev)}%`;
