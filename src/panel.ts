@@ -1,4 +1,4 @@
-import { eraOf, eraSpan, eventsAt, periodOf, placeOf, search, themeById, themesOf, wikiUrl } from './data';
+import { archivesUrl, eraOf, eraSpan, eventsAt, periodOf, placeOf, search, themeById, themesOf, wikiUrl } from './data';
 import type { MapView } from './map';
 import { neighbours, selectEvent, selectedEvent, setFilters, visibleEvents, type State, type Store } from './state';
 import type { HistoryEvent } from './types';
@@ -113,6 +113,7 @@ function details(s: State): string {
       <li>${icons.pin}<span>${esc(place.where)}${place.approx ? ' <em>(approximate location)</em>' : ''}</span></li>
       <li>${icons.calendar}<span>${esc(ev.yearLabel)} · ${esc(era.name)} (${eraSpan(era)})${period ? ` · ${esc(period.name)} (${eraSpan(period)})` : ''}</span></li>
       ${links.map((t) => `<li>${icons.external}<a href="${wikiUrl(t)}" target="_blank" rel="noopener">Wikipedia: ${esc(t)}</a></li>`).join('')}
+      ${place.archives ? `<li>${icons.external}<a href="${archivesUrl(place.archives)}" target="_blank" rel="noopener">Bedfordshire Archives: Community Histories</a></li>` : ''}
     </ul>
     ${others.length ? `<section class="list"><h2>Also at this place</h2>${others.map((e) => eventButton(e)).join('')}</section>` : ''}
     ${theme ? `<section class="list">

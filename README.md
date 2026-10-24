@@ -39,3 +39,9 @@ are drawn from the linked Wikipedia articles; coordinates come from
 Wikipedia where available, and places marked `"approx": true` are estimates.
 
 See [`sketches/`](sketches/) for the original UI mock-ups.
+
+Places can also link to the Bedfordshire Archives'
+[Community Histories](https://bedsarchives.bedford.gov.uk/CommunityHistories/Community-Histories.aspx)
+with an `archives` path relative to that folder. `node scripts/scrape-archives.mjs`
+refreshes `src/data/archives-index.json`, a list of page titles and paths to
+pick from; only links are kept, never the Archives' text.

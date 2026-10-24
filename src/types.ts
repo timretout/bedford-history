@@ -34,6 +34,8 @@ export interface Place {
   where: string;
   /** English Wikipedia article title for the place. */
   wiki: string;
+  /** Bedfordshire Archives Community Histories page, relative to the CommunityHistories folder. */
+  archives?: string;
   /** True when the coordinates are estimated rather than sourced. */
   approx?: boolean;
 }

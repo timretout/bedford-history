@@ -59,6 +59,10 @@ export function wikiUrl(title: string): string {
   return `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, '_'))}`;
 }
 
+export function archivesUrl(page: string): string {
+  return `https://bedsarchives.bedford.gov.uk/CommunityHistories/${page}`;
+}
+
 /** Position as a percentage along spans drawn at equal width, within span `i`. */
 function spanPosition(year: number, spans: { from: number; to: number }[], i: number): number {
   const { from, to } = spans[i];
