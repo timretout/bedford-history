@@ -4,19 +4,66 @@ import { neighbours, selectEvent, selectedEvent, type State, type Store } from '
 import type { HistoryEvent } from './types';
 import { esc, icons } from './util';
 
-const thumbnails = new Map<string, Promise<string | null>>();
+interface Photo {
+  src: string;
+  /** Commons (or local) file description page. */
+  page: string;
+  author: string;
+  license: string;
+  licenseUrl?: string;
+}
 
-/** Lead image for a Wikipedia article, via the REST summary endpoint. */
-function thumbnail(title: string): Promise<string | null> {
-  let p = thumbnails.get(title);
+const photos = new Map<string, Promise<Photo | null>>();
+
+async function wikiApi(params: Record<string, string>): Promise<any> {
+  const query = new URLSearchParams({ action: 'query', format: 'json', formatversion: '2', origin: '*', ...params });
+  const r = await fetch(`https://en.wikipedia.org/w/api.php?${query}`);
+  return r.ok ? r.json() : null;
+}
+
+/** Plain text of an HTML metadata field such as the file's Artist. */
+function plainText(html: string | undefined): string {
+  if (!html) return '';
+  return (new DOMParser().parseFromString(html, 'text/html').body.textContent ?? '').replace(/\s+/g, ' ').trim();
+}
+
+/** Lead image for a Wikipedia article, with the author and licence its reuse requires. */
+async function loadPhoto(title: string): Promise<Photo | null> {
+  const page = (await wikiApi({ titles: title, prop: 'pageimages', piprop: 'name' }))?.query?.pages?.[0];
+  if (!page?.pageimage) return null;
+  const file = (await wikiApi({
+    titles: `File:${page.pageimage}`,
+    prop: 'imageinfo',
+    iiprop: 'url|extmetadata',
+    iiurlwidth: '640',
+    iiextmetadatafilter: 'Artist|LicenseShortName|LicenseUrl|NonFree',
+  }))?.query?.pages?.[0]?.imageinfo?.[0];
+  const meta = file?.extmetadata ?? {};
+  // Fair-use images can't be reused here, and anything else needs a credit we can show.
+  if (!file?.thumburl || meta.NonFree?.value || !meta.LicenseShortName?.value) return null;
+  return {
+    src: file.thumburl,
+    page: file.descriptionurl,
+    author: plainText(meta.Artist?.value) || 'Unknown author',
+    license: meta.LicenseShortName.value,
+    licenseUrl: meta.LicenseUrl?.value,
+  };
+}
+
+function photo(title: string): Promise<Photo | null> {
+  let p = photos.get(title);
   if (!p) {
-    p = fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title.replace(/ /g, '_'))}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => j?.thumbnail?.source ?? null)
-      .catch(() => null);
-    thumbnails.set(title, p);
+    p = loadPhoto(title).catch(() => null);
+    photos.set(title, p);
   }
   return p;
+}
+
+function credit(p: Photo): string {
+  const license = p.licenseUrl
+    ? `<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener license">${esc(p.license)}</a>`
+    : esc(p.license);
+  return `<a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.author)}</a>, ${license}`;
 }
 
 function eventButton(ev: HistoryEvent, extra = ''): string {
@@ -124,11 +171,11 @@ export function createPanel(el: HTMLElement, store: Store, mapView: MapView): vo
     body.innerHTML = details(s);
     body.scrollTop = 0;
     const place = placeOf(selectedEvent(s));
-    thumbnail(place.wiki).then((src) => {
+    photo(place.wiki).then((p) => {
       const figure = body.querySelector('.photo');
-      if (!src || !figure || placeOf(selectedEvent(store.get())).id !== place.id) return;
-      figure.innerHTML = `<img src="${esc(src)}" alt="${esc(place.name)}">
-        <figcaption><a href="${wikiUrl(place.wiki)}" target="_blank" rel="noopener">Image via Wikipedia</a></figcaption>`;
+      if (!p || !figure || placeOf(selectedEvent(store.get())).id !== place.id) return;
+      figure.innerHTML = `<img src="${esc(p.src)}" alt="${esc(place.name)}">
+        <figcaption>${credit(p)}</figcaption>`;
     });
   }
 
