@@ -45,3 +45,10 @@ Places can also link to the Bedfordshire Archives'
 with an `archives` path relative to that folder. `node scripts/scrape-archives.mjs`
 refreshes `src/data/archives-index.json`, a list of page titles and paths to
 pick from; only links are kept, never the Archives' text.
+
+The map's layers menu has an optional **Bedfordshire Archives** overlay: a dot
+for each Community Histories page about a building, from
+`src/data/archives-places.json`. `node scripts/geocode-archives.mjs` adds new
+pages from the index, taking the address from the title or page and placing
+it with OpenStreetMap's Nominatim. Entries already in the file are kept, so
+coordinates can be corrected by hand.

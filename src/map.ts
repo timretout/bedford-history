@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { eraOf, eventsAt, places } from './data';
+import type { ArchivesLayer } from './archives';
 import type { HistoricLayer } from './historic';
 import { matches, selectEvent, selectedEvent, type State, type Store } from './state';
 import { esc, icons } from './util';
@@ -46,22 +47,27 @@ const BASES = [
 type BaseId = (typeof BASES)[number]['id'];
 
 const BASE_KEY = 'base-map';
+const ARCHIVES_KEY = 'archives-overlay';
 
-function loadBase(): BaseId {
+function load(key: string): string | null {
   try {
-    const id = localStorage.getItem(BASE_KEY);
-    return BASES.find((b) => b.id === id)?.id ?? 'osm';
+    return localStorage.getItem(key);
   } catch {
-    return 'osm';
+    return null;
   }
 }
 
-function saveBase(id: BaseId): void {
+function save(key: string, value: string): void {
   try {
-    localStorage.setItem(BASE_KEY, id);
+    localStorage.setItem(key, value);
   } catch {
     // Not remembered; the choice still applies for this visit.
   }
+}
+
+function loadBase(): BaseId {
+  const id = load(BASE_KEY);
+  return BASES.find((b) => b.id === id)?.id ?? 'osm';
 }
 
 /** Map padding that keeps markers clear of the floating panel and timeline. */
@@ -103,18 +109,41 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     }
   }
 
-  // Layers button with a menu of base maps.
+  // Bedfordshire Archives pages, as dots. Loaded on first use.
+  let archives: ArchivesLayer | null = null;
+  let showArchives = load(ARCHIVES_KEY) === 'on';
+
+  async function setArchives(on: boolean): Promise<void> {
+    showArchives = on;
+    overlay.checked = on;
+    if (on) {
+      archives ??= (await import('./archives')).createArchivesLayer();
+      if (showArchives) archives.addTo(map);
+    } else {
+      archives?.remove();
+    }
+  }
+
+  // Layers button with a menu of base maps and overlays.
   const control = L.DomUtil.create('div', 'leaflet-bar map-layers');
   control.innerHTML = `
-    <button type="button" class="map-layers-btn" aria-label="Base map" title="Base map" aria-expanded="false" aria-controls="map-layers-menu">${icons.layers}</button>
-    <fieldset id="map-layers-menu" class="map-layers-menu" hidden>
-      <legend>Base map</legend>
-      ${BASES.map((b) => `<label><input type="radio" name="base-map" value="${b.id}">
-        <span>${b.name}<small>${b.note}</small></span></label>`).join('')}
-    </fieldset>`;
+    <button type="button" class="map-layers-btn" aria-label="Map layers" title="Map layers" aria-expanded="false" aria-controls="map-layers-menu">${icons.layers}</button>
+    <div id="map-layers-menu" class="map-layers-menu" hidden>
+      <fieldset>
+        <legend>Base map</legend>
+        ${BASES.map((b) => `<label><input type="radio" name="base-map" value="${b.id}">
+          <span>${b.name}<small>${b.note}</small></span></label>`).join('')}
+      </fieldset>
+      <fieldset>
+        <legend>Overlays</legend>
+        <label><input type="checkbox" name="archives">
+          <span>Bedfordshire Archives<small>Buildings with a Community Histories page</small></span></label>
+      </fieldset>
+    </div>`;
   const button = control.querySelector<HTMLButtonElement>('.map-layers-btn')!;
   const menu = control.querySelector<HTMLElement>('.map-layers-menu')!;
-  const inputs = [...control.querySelectorAll<HTMLInputElement>('input')];
+  const inputs = [...control.querySelectorAll<HTMLInputElement>('input[name="base-map"]')];
+  const overlay = control.querySelector<HTMLInputElement>('input[name="archives"]')!;
   L.DomEvent.disableClickPropagation(control);
   L.DomEvent.disableScrollPropagation(control);
 
@@ -124,9 +153,15 @@ export function createMap(el: HTMLElement, store: Store): MapView {
   };
   button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
   control.addEventListener('change', (e) => {
-    const id = (e.target as HTMLInputElement).value as BaseId;
+    const input = e.target as HTMLInputElement;
+    if (input === overlay) {
+      void setArchives(overlay.checked);
+      save(ARCHIVES_KEY, overlay.checked ? 'on' : 'off');
+      return;
+    }
+    const id = input.value as BaseId;
     void setBase(id);
-    saveBase(id);
+    save(BASE_KEY, id);
     setOpen(false);
   });
   control.addEventListener('keydown', (e) => {
@@ -140,6 +175,7 @@ export function createMap(el: HTMLElement, store: Store): MapView {
   });
   new (L.Control.extend({ onAdd: () => control }))({ position: 'topright' }).addTo(map);
   void setBase(base);
+  void setArchives(showArchives);
 
   const markers = new Map<string, L.Marker>();
   const iconKeys = new Map<string, string>();

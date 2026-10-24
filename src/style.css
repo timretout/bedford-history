@@ -295,6 +295,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border: 0; border-radius: 8px; background: var(--surface); box-shadow: var(--shadow);
   font: 14px Roboto, Arial, sans-serif; color: var(--text);
 }
+.map-layers-menu fieldset { clear: both; margin: 0; padding: 0; border: 0; }
+.map-layers-menu fieldset + fieldset { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--line-soft); }
 .map-layers-menu legend {
   float: left; width: 100%; padding: 4px 16px 6px;
   font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em;
@@ -303,3 +305,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .map-layers-menu label:hover { background: var(--ground); }
 .map-layers-menu input { margin: 2px 0 0; accent-color: var(--accent); }
 .map-layers-menu small { display: block; font-size: 12px; color: var(--muted); }
+
+/* Bedfordshire Archives overlay */
+.archives-popup .leaflet-popup-content { margin: 10px 14px; font: 13px Roboto, Arial, sans-serif; color: var(--text); }
+.archives-popup strong { display: block; font-size: 14px; font-weight: 500; }
+.archives-popup p { margin: 2px 0 6px; color: var(--muted); }
+.archives-popup a { color: var(--accent-text); }
