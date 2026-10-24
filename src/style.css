@@ -151,7 +151,25 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .event-link:hover { background: #f8f9fa; }
 .event-link strong { color: var(--text); font-weight: 500; }
+.event-link[aria-current="true"] { background: var(--accent-soft); }
 .empty { padding: 16px 24px; color: var(--muted); }
+
+/* Themes */
+.theme-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; }
+.theme-chip {
+  padding: 4px 12px; border: 1px solid var(--line); border-radius: 16px;
+  background: var(--surface); font: inherit; color: var(--text-2);
+}
+.theme-chip:hover { background: #f8f9fa; }
+.theme-chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); }
+.theme-banner { padding: 16px 24px; background: var(--accent-soft); }
+.theme-banner h2 { margin: 2px 0 4px; font-size: 18px; font-weight: 500; }
+.theme-banner p { margin: 0; font-size: 14px; color: var(--text-2); }
+.theme-banner .theme-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent-text); }
+.theme-clear {
+  margin-top: 10px; padding: 4px 12px; border: 1px solid var(--accent); border-radius: 16px;
+  background: #fff; font: inherit; font-size: 13px; color: var(--accent-text);
+}
 
 /* Timeline */
 .tl-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -164,9 +182,21 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tl-year { font-size: 22px; font-weight: 500; }
 .tl-title { font-size: 15px; color: var(--text-2); }
 .tl-nav { display: flex; }
-.tl-note { font-size: 12px; color: var(--muted); }
+.tl-note { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); }
+.tl-note strong { color: var(--text); font-weight: 500; }
+.tl-crumb {
+  display: inline-flex; align-items: center; gap: 2px; padding: 4px 8px 4px 4px; border: 0; border-radius: 14px;
+  background: none; font: inherit; color: var(--accent-text);
+}
+.tl-crumb:hover { background: var(--accent-soft); }
+.tl-crumb svg { width: 16px; height: 16px; }
 
-.tl-track { position: relative; margin-top: 12px; }
+.tl-track { position: relative; margin-top: 12px; transform-origin: var(--zoom-origin) 50%; }
+.tl-track.zoom-in { animation: tl-zoom-in 0.35s ease-out; }
+.tl-track.zoom-out { animation: tl-zoom-out 0.35s ease-out; }
+@keyframes tl-zoom-in { from { transform: scaleX(0.1); opacity: 0; } }
+@keyframes tl-zoom-out { from { transform: scaleX(2.5); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tl-track.zoom-in, .tl-track.zoom-out { animation: none; } }
 .tl-ticks { position: relative; height: calc(var(--tick-rows) * 14px); margin-bottom: 6px; }
 .tl-tick {
   position: absolute; top: calc(var(--row) * 14px); transform: translateX(-50%);
@@ -174,7 +204,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(60, 64, 67, 0.3);
 }
 .tl-tick.selected { width: 14px; height: 14px; top: calc(var(--row) * 14px - 1px); box-shadow: 0 0 0 2px var(--text); }
-.tl-tick.dimmed, .tl-band.dimmed { opacity: 0.4; }
+.tl-tick.dimmed { opacity: 0.25; }
+.tl-band.dimmed { opacity: 0.4; }
 .tl-bands { display: flex; gap: 2px; height: 40px; }
 .tl-band {
   flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center;
@@ -184,7 +215,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
 }
 .tl-band span { font-size: 11px; font-weight: 400; color: var(--muted); }
-.tl-band:hover, .tl-band[aria-pressed="true"] { background: color-mix(in srgb, var(--era) 25%, white); }
+.tl-band:hover:not(:disabled, div), .tl-band[aria-pressed="true"] { background: color-mix(in srgb, var(--era) 25%, white); }
+.tl-band:disabled { opacity: 0.45; border-bottom-style: dashed; }
 .tl-handle {
   position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px;
   background: var(--text); pointer-events: none; transition: left 0.3s ease;
@@ -202,7 +234,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
     position: relative; left: auto; right: auto; bottom: auto; order: 2;
     margin: -24px 12px 0; padding: 12px 14px;
   }
-  .tl-note { display: none; }
+  .tl-hint { display: none; }
   .tl-now { min-width: 0; flex-wrap: wrap; row-gap: 0; }
   .tl-band { font-size: 0; }
   .tl-band span { display: none; }

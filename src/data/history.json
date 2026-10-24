@@ -5,11 +5,51 @@
     { "id": "iron", "name": "Iron Age", "from": -800, "to": 43, "color": "#00796b" },
     { "id": "roman", "name": "Roman", "from": 43, "to": 410, "color": "#ad1457" },
     { "id": "saxon", "name": "Anglo-Saxon", "from": 410, "to": 1066, "color": "#7b5ea7" },
-    { "id": "medieval", "name": "Medieval", "from": 1066, "to": 1485, "color": "#b3261e" },
-    { "id": "tudor", "name": "Tudor & Stuart", "from": 1485, "to": 1714, "color": "#c26401" },
+    { "id": "medieval", "name": "Medieval", "from": 1066, "to": 1485, "color": "#b3261e",
+      "periods": [
+        { "id": "norman", "name": "Norman", "from": 1066, "to": 1154 },
+        { "id": "plantagenet", "name": "Plantagenet", "from": 1154, "to": 1399 },
+        { "id": "lancaster-york", "name": "Lancaster & York", "from": 1399, "to": 1485 }
+      ]
+    },
+    { "id": "tudor", "name": "Tudor & Stuart", "from": 1485, "to": 1714, "color": "#c26401",
+      "periods": [
+        { "id": "tudors", "name": "Tudor", "from": 1485, "to": 1603 },
+        { "id": "early-stuart", "name": "Early Stuart", "from": 1603, "to": 1642 },
+        { "id": "civil-war", "name": "Civil War & Commonwealth", "from": 1642, "to": 1660 },
+        { "id": "late-stuart", "name": "Restoration & late Stuart", "from": 1660, "to": 1714 }
+      ]
+    },
     { "id": "georgian", "name": "Georgian", "from": 1714, "to": 1837, "color": "#188038" },
-    { "id": "victorian", "name": "Victorian", "from": 1837, "to": 1901, "color": "#1a73e8" },
-    { "id": "modern", "name": "Modern", "from": 1901, "to": 2030, "color": "#3c4043" }
+    { "id": "victorian", "name": "Victorian", "from": 1837, "to": 1901, "color": "#1a73e8",
+      "periods": [
+        { "id": "early-victorian", "name": "Early Victorian", "from": 1837, "to": 1851 },
+        { "id": "mid-victorian", "name": "Mid-Victorian", "from": 1851, "to": 1873 },
+        { "id": "late-victorian", "name": "Late Victorian", "from": 1873, "to": 1901 }
+      ]
+    },
+    { "id": "modern", "name": "Modern", "from": 1901, "to": 2030, "color": "#3c4043",
+      "periods": [
+        { "id": "edwardian", "name": "Edwardian & WWI", "from": 1901, "to": 1918 },
+        { "id": "interwar", "name": "Interwar", "from": 1918, "to": 1939 },
+        { "id": "ww2", "name": "Second World War", "from": 1939, "to": 1945 },
+        { "id": "postwar", "name": "Post-war", "from": 1945, "to": 1960 },
+        { "id": "sixties-seventies", "name": "1960s & 70s", "from": 1960, "to": 1980 },
+        { "id": "late-20c", "name": "Late 20th century", "from": 1980, "to": 2000 },
+        { "id": "21c", "name": "21st century", "from": 2000, "to": 2030 }
+      ]
+    }
+  ],
+  "themes": [
+    { "id": "bunyan", "name": "John Bunyan", "summary": "The tinker-preacher's life in and around Bedford, from his birth at Elstow to his statue on St Peter's Green." },
+    { "id": "howard", "name": "John Howard", "summary": "The Cardington landowner whose inspection of the county gaol began a lifetime of prison reform." },
+    { "id": "prisons", "name": "Prisons and reform", "summary": "Bedford's county gaol held John Bunyan, and a century later moved John Howard to campaign for better prisons." },
+    { "id": "castle-site", "name": "The castle site", "summary": "One patch of riverbank from Norman castle to siege to museum." },
+    { "id": "st-pauls", "name": "St Paul's Square", "summary": "The heart of the old town: a royal burial, wartime broadcasts and John Howard's statue." },
+    { "id": "great-ouse", "name": "The Great Ouse", "summary": "People have farmed, buried their dead, worshipped and built bridges along the river for thousands of years." },
+    { "id": "monasteries", "name": "Religious houses", "summary": "The priories, abbey and preceptory founded around Bedford after the Norman Conquest." },
+    { "id": "flight", "name": "Flight", "summary": "Airships, bomber bases, research aircraft and drag racing on an old airfield." },
+    { "id": "music", "name": "Music and broadcasting", "summary": "From the Corn Exchange's opening to Glenn Miller and the BBC in wartime Bedford." }
   ],
   "places": [
     { "id": "biddenham", "name": "Deep Spinney", "lat": 52.14143, "lng": -0.50500, "approx": true, "where": "Biddenham, west of Bedford", "wiki": "Biddenham" },
@@ -37,6 +77,7 @@
     { "id": "swan", "name": "The Swan Hotel", "lat": 52.13506, "lng": -0.46505, "where": "The Embankment, by the Town Bridge", "wiki": "Swan Hotel, Bedford" },
     { "id": "town-bridge", "name": "Town Bridge", "lat": 52.13443, "lng": -0.46620, "where": "High Street, over the Great Ouse", "wiki": "Town Bridge, Bedford" },
     { "id": "station", "name": "Bedford Midland station", "lat": 52.13639, "lng": -0.47944, "where": "Midland Road", "wiki": "Bedford railway station" },
+    { "id": "howard-statue", "name": "John Howard Statue", "lat": 52.13548, "lng": -0.46645, "where": "St Paul's Square", "wiki": "Statue of John Howard, Bedford" },
     { "id": "bunyan-statue", "name": "Bunyan Statue", "lat": 52.13881, "lng": -0.46667, "where": "St Peter's Green", "wiki": "Statue of John Bunyan, Bedford" },
     { "id": "corn-exchange", "name": "Corn Exchange", "lat": 52.1360, "lng": -0.4674, "where": "St Paul's Square", "wiki": "Bedford Corn Exchange" },
     { "id": "panacea", "name": "Panacea Society", "lat": 52.13628, "lng": -0.46224, "where": "Albany Road", "wiki": "Panacea Society" },
@@ -86,7 +127,7 @@
       "summary": "Excavations in 1995 beside the Bunyan Centre uncovered a late Neolithic or early Bronze Age settlement and ritual site, with three skeletons and a complete Beaker pot."
     },
     {
-      "id": "roxton-barrows", "place": "roxton", "era": "bronze", "year": -1800, "yearLabel": "Bronze Age",
+      "id": "roxton-barrows", "place": "roxton", "era": "bronze", "year": -1800, "yearLabel": "Bronze Age", "themes": ["great-ouse"],
       "title": "Barrow cemetery at Roxton",
       "summary": "A Bronze Age barrow cemetery of five ring ditches was excavated in the 1970s ahead of gravel extraction near the Ouse, revealing two urned cremation burials. The site is now a lake."
     },
@@ -131,7 +172,7 @@
       "summary": "Cropmarks, ditches, roof tiles and pottery about 700 metres south of the village mark a complex of enclosures probably dating from the 1st to 5th century. Third-century pottery, coins, a quern and jewellery have been found to the north-west."
     },
     {
-      "id": "priory-farmstead", "place": "priory-park", "era": "roman", "year": 220, "yearLabel": "Roman",
+      "id": "priory-farmstead", "place": "priory-park", "era": "roman", "year": 220, "yearLabel": "Roman", "themes": ["great-ouse"],
       "title": "Roman farmstead by the Ouse",
       "summary": "A Roman farmstead near the river was excavated in the 1970s before gravel extraction created what is now Priory Country Park. Roman bricks from it survive in the wall beside the marina, alongside stones from Newnham Priory."
     },
@@ -146,28 +187,28 @@
       "summary": "The land between Harrold and Odell has been settled since at least the 3rd century, when a Roman farmstead stood where Grebe Lake is now."
     },
     {
-      "id": "offa-buried", "place": "st-pauls", "era": "saxon", "year": 796, "yearLabel": "796",
+      "id": "offa-buried", "place": "st-pauls", "era": "saxon", "year": 796, "yearLabel": "796", "themes": ["st-pauls", "great-ouse"],
       "title": "Offa of Mercia buried in Bedford",
       "summary": "The Mercian king Offa was buried in Bedford in 796. Tradition places the grave in his new minster, now St Paul's Church, or on the nearby bank of the Great Ouse.",
       "wiki": "Offa of Mercia"
     },
     {
-      "id": "castle-built", "place": "castle", "era": "medieval", "year": 1100, "yearLabel": "after 1100",
+      "id": "castle-built", "place": "castle", "era": "medieval", "year": 1100, "yearLabel": "after 1100", "themes": ["castle-site"],
       "title": "Henry I builds Bedford Castle",
       "summary": "Built after 1100 by Henry I and later extended in stone, the castle played a prominent part in the Anarchy and the First Barons' War."
     },
     {
-      "id": "caldwell-founded", "place": "caldwell", "era": "medieval", "year": 1154, "yearLabel": "c. 1154",
+      "id": "caldwell-founded", "place": "caldwell", "era": "medieval", "year": 1154, "yearLabel": "c. 1154", "themes": ["monasteries", "great-ouse"],
       "title": "Caldwell Priory founded",
       "summary": "A priory of Canons of the Holy Sepulchre on the south bank of the Great Ouse, in the south-west of the town. It lasted until 1536."
     },
     {
-      "id": "newnham-founded", "place": "newnham", "era": "medieval", "year": 1166, "yearLabel": "c. 1166",
+      "id": "newnham-founded", "place": "newnham", "era": "medieval", "year": 1166, "yearLabel": "c. 1166", "themes": ["monasteries"],
       "title": "Newnham Priory founded",
       "summary": "Simon de Beauchamp, son of Payn, founded the priory at Newnham, east of the town, around 1166. Its first prior, William, was appointed that year."
     },
     {
-      "id": "castle-siege", "place": "castle", "era": "medieval", "year": 1224, "yearLabel": "1224",
+      "id": "castle-siege", "place": "castle", "era": "medieval", "year": 1224, "yearLabel": "1224", "themes": ["castle-site"],
       "title": "Siege of Bedford Castle",
       "summary": "Henry III besieged the castle after a dispute with Falkes de Bréauté. The siege lasted eight weeks and involved as many as 2,700 soldiers; after the surrender the king ordered the castle slighted. Part of the motte survives in an archaeological park."
     },
@@ -177,12 +218,12 @@
       "summary": "Founded by royal charter in 1552, it is one of the oldest boys' schools in the United Kingdom and is run by the Harpur Trust."
     },
     {
-      "id": "bunyan-imprisoned", "place": "county-gaol", "era": "tudor", "year": 1660, "yearLabel": "1660–72",
+      "id": "bunyan-imprisoned", "place": "county-gaol", "era": "tudor", "year": 1660, "yearLabel": "1660–72", "themes": ["bunyan", "prisons"],
       "title": "John Bunyan imprisoned",
       "summary": "Arrested for preaching in November 1660, Bunyan spent twelve years in the County Gaol on the corner of High Street and Silver Street. There he wrote Grace Abounding and began The Pilgrim's Progress."
     },
     {
-      "id": "bunyan-barn", "place": "bunyan-meeting", "era": "tudor", "year": 1672, "yearLabel": "1672",
+      "id": "bunyan-barn", "place": "bunyan-meeting", "era": "tudor", "year": 1672, "yearLabel": "1672", "themes": ["bunyan"],
       "title": "Bunyan's congregation buys a barn",
       "summary": "In 1672 the congregation led by Bunyan bought a barn here for worship. The present Bunyan Meeting church was built on the site in 1849, and the John Bunyan Museum opened beside it in 1998."
     },
@@ -192,7 +233,7 @@
       "summary": "The 5th Duke of Bedford had Henry Holland replace the old Swan Inn with a Neoclassical building, serving as both hotel and Whig political headquarters. Its staircase came from the demolished Houghton House at Ampthill."
     },
     {
-      "id": "bridge-built", "place": "town-bridge", "era": "georgian", "year": 1813, "yearLabel": "1811–13",
+      "id": "bridge-built", "place": "town-bridge", "era": "georgian", "year": 1813, "yearLabel": "1811–13", "themes": ["great-ouse"],
       "title": "The Town Bridge is rebuilt",
       "summary": "John Wing designed the present bridge, replacing a medieval one said to date from 1224 and built with stone from the castle. It was widened in 1938–40."
     },
@@ -202,14 +243,19 @@
       "summary": "The first station opened in 1857 on the Leicester to Hitchin line; the extension to London St Pancras followed in 1868. The present station, about 100 m north of the original, opened in 1978."
     },
     {
-      "id": "corn-exchange-opens", "place": "corn-exchange", "era": "victorian", "year": 1874, "yearLabel": "1874",
+      "id": "corn-exchange-opens", "place": "corn-exchange", "era": "victorian", "year": 1874, "yearLabel": "1874", "themes": ["music"],
       "title": "The Corn Exchange opens",
       "summary": "Designed by John Ladds and William Powell in the Italianate style, the new Corn Exchange replaced a smaller one of 1850 and was opened by the 9th Duke of Bedford on 15 April 1874."
     },
     {
-      "id": "bunyan-statue", "place": "bunyan-statue", "era": "victorian", "year": 1874, "yearLabel": "1874",
+      "id": "bunyan-statue", "place": "bunyan-statue", "era": "victorian", "year": 1874, "yearLabel": "1874", "themes": ["bunyan"],
       "title": "Bunyan statue unveiled",
       "summary": "Sir Joseph Edgar Boehm's bronze of John Bunyan was unveiled on 10 June 1874, a gift to the town from the 9th Duke of Bedford."
+    },
+    {
+      "id": "howard-statue", "place": "howard-statue", "era": "victorian", "year": 1890, "yearLabel": "1890", "themes": ["howard", "prisons", "st-pauls"],
+      "title": "John Howard statue erected",
+      "summary": "Alfred Gilbert's bronze of John Howard, shown in travelling dress, was put up in St Paul's Square in 1890, the centenary of his death. It is Grade I listed."
     },
     {
       "id": "panacea-founded", "place": "panacea", "era": "modern", "year": 1919, "yearLabel": "1919",
@@ -217,28 +263,28 @@
       "summary": "Mabel Barltrop founded the society at 12 Albany Road, following the prophetess Joanna Southcott. Members believed Bedford was the original site of the Garden of Eden; their story is now told in the Panacea Museum."
     },
     {
-      "id": "r101-lost", "place": "cardington", "era": "modern", "year": 1930, "yearLabel": "1930",
+      "id": "r101-lost", "place": "cardington", "era": "modern", "year": 1930, "yearLabel": "1930", "themes": ["flight"],
       "title": "R101 lost on its maiden voyage",
       "summary": "Built at Cardington and at the time the world's largest flying craft, the airship R101 crashed in France on 5 October 1930 during its first overseas voyage, killing 48 people.",
       "wiki": "R101"
     },
     {
-      "id": "st-pauls-broadcasts", "place": "st-pauls", "era": "modern", "year": 1941, "yearLabel": "1941",
+      "id": "st-pauls-broadcasts", "place": "st-pauls", "era": "modern", "year": 1941, "yearLabel": "1941", "themes": ["st-pauls", "music"],
       "title": "St Paul's goes on air",
       "summary": "With BBC departments evacuated to Bedford, St Paul's became home to the BBC's daily worship during the Second World War, and the 1941 National Day of Prayer service was broadcast from the church."
     },
     {
-      "id": "glenn-miller", "place": "corn-exchange", "era": "modern", "year": 1944, "yearLabel": "1944",
+      "id": "glenn-miller", "place": "corn-exchange", "era": "modern", "year": 1944, "yearLabel": "1944", "themes": ["music"],
       "title": "Glenn Miller broadcasts from Bedford",
       "summary": "The BBC Symphony Orchestra gave concerts here from 1941 to 1945, and Glenn Miller broadcast from the building with the American Band of the Supreme Headquarters Allied Expeditionary Force."
     },
     {
-      "id": "higgins-opens", "place": "higgins", "era": "modern", "year": 2013, "yearLabel": "2013",
+      "id": "higgins-opens", "place": "higgins", "era": "modern", "year": 2013, "yearLabel": "2013", "themes": ["castle-site"],
       "title": "The Higgins opens on the castle site",
       "summary": "Bedford Gallery, the Cecil Higgins Art Gallery and Bedford Museum were joined into one building in the Castle Quarter, completed in June 2013."
     },
     {
-      "id": "kempston-cemetery", "place": "kempston", "era": "saxon", "year": 550, "yearLabel": "6th century",
+      "id": "kempston-cemetery", "place": "kempston", "era": "saxon", "year": 550, "yearLabel": "6th century", "themes": ["great-ouse"],
       "title": "An Anglo-Saxon burial ground at Kempston",
       "summary": "Kempston, recorded as Camestone in the Domesday Book, had a 6th-century Anglo-Saxon burial site. Its name may come from a Brittonic word for the bend in the Great Ouse it sits on."
     },
@@ -258,17 +304,17 @@
       "summary": "After the Conquest, Walter de Wahul was given the manor and built a motte-and-bailey castle with a stone keep, home to his family for some 400 years. Ruined by 1633, it was rebuilt as a house that burnt down in 1931."
     },
     {
-      "id": "elstow-abbey-founded", "place": "elstow-abbey", "era": "medieval", "year": 1075, "yearLabel": "c. 1075",
+      "id": "elstow-abbey-founded", "place": "elstow-abbey", "era": "medieval", "year": 1075, "yearLabel": "c. 1075", "themes": ["monasteries"],
       "title": "Countess Judith founds Elstow Abbey",
       "summary": "Judith, a niece of William the Conqueror, founded a Benedictine nunnery at Elstow. By 1538 it was the eighth richest nunnery in England; it was surrendered to Henry VIII in 1539, and part of its church survives as the parish church."
     },
     {
-      "id": "harrold-priory-founded", "place": "harrold-priory", "era": "medieval", "year": 1138, "yearLabel": "1138",
+      "id": "harrold-priory-founded", "place": "harrold-priory", "era": "medieval", "year": 1138, "yearLabel": "1138", "themes": ["monasteries"],
       "title": "Harrold Priory founded",
       "summary": "A small house of nuns of the Arrouaise order, first governed by a prior and canons, was established at Harrold in 1138. It was dissolved in 1536, after a visitor reported only a prioress and a handful of nuns."
     },
     {
-      "id": "melchbourne-preceptory", "place": "melchbourne", "era": "medieval", "year": 1160, "yearLabel": "1154–89",
+      "id": "melchbourne-preceptory", "place": "melchbourne", "era": "medieval", "year": 1160, "yearLabel": "1154–89", "themes": ["monasteries"],
       "title": "The Knights Hospitaller at Melchbourne",
       "summary": "Founded in the reign of Henry II with gifts from Alice de Clare, the preceptory held a general chapter of the Hospitallers in England in 1242. Its last remains were bulldozed in 1944 for a US servicemen's baseball ground."
     },
@@ -278,7 +324,7 @@
       "summary": "First recorded in 1173, this motte-and-bailey castle with two baileys was the stronghold of the Trailly family into the 13th century. It was in decay by 1360, and today only its earthworks remain."
     },
     {
-      "id": "barford-bridge-built", "place": "barford-bridge", "era": "medieval", "year": 1420, "yearLabel": "early 15th century",
+      "id": "barford-bridge-built", "place": "barford-bridge", "era": "medieval", "year": 1420, "yearLabel": "early 15th century", "themes": ["great-ouse"],
       "title": "Great Barford Bridge",
       "summary": "The seventeen-arch bridge over the Great Ouse dates from the early 15th century, built from limestone and sandstone. It was widened in 1818 and again in brick in 1874, and is Grade I listed."
     },
@@ -298,7 +344,7 @@
       "summary": "Despite its name, Turvey Abbey began as a house, dated 1605 and 1608 on its two façades. Catholic recusants lived there in the 17th century, and it is now home to a community of Benedictine nuns."
     },
     {
-      "id": "bunyan-born", "place": "bunyan-birthplace", "era": "tudor", "year": 1628, "yearLabel": "1628", "wiki": "John Bunyan",
+      "id": "bunyan-born", "place": "bunyan-birthplace", "era": "tudor", "year": 1628, "yearLabel": "1628", "wiki": "John Bunyan", "themes": ["bunyan"],
       "title": "John Bunyan born",
       "summary": "Bunyan was born in 1628 at Bunyan's End, about halfway between the hamlet of Harrowden and Elstow's High Street. Elstow's Moot Hall was one of the places where he later developed his nonconformist ideas."
     },
@@ -313,7 +359,7 @@
       "summary": "Mark Antonie, a self-made man who aspired to join the landed gentry, started the house in 1715. Unilever bought it in 1947 and turned it into a research laboratory, still one of its main research centres."
     },
     {
-      "id": "howard-sheriff", "place": "cardington-village", "era": "georgian", "year": 1774, "yearLabel": "1774", "wiki": "John Howard (prison reformer)",
+      "id": "howard-sheriff", "place": "cardington-village", "era": "georgian", "year": 1774, "yearLabel": "1774", "wiki": "John Howard (prison reformer)", "themes": ["howard", "prisons"],
       "title": "John Howard inspects the county gaol",
       "summary": "Howard lived on an estate at Cardington, where he paid for the schooling of tenants' children. Made High Sheriff of Bedfordshire in 1774, he inspected the county prison himself, and what he found led to his 1777 exposé The State of the Prisons."
     },
@@ -333,22 +379,22 @@
       "summary": "The London Brick Company began a garden-village for its workers at Wootton Pillinge in 1926, later renamed Stewartby after the company's directors. Its brickworks was the largest in the world by output until it closed in 2008; the last chimneys came down in 2021."
     },
     {
-      "id": "thurleigh-306th", "place": "thurleigh", "era": "modern", "year": 1942, "yearLabel": "1942–45",
+      "id": "thurleigh-306th", "place": "thurleigh", "era": "modern", "year": 1942, "yearLabel": "1942–45", "themes": ["flight"],
       "title": "The 306th Bomb Group at Thurleigh",
       "summary": "B-17s of the US 306th Bombardment Group arrived in September 1942 and stayed until December 1945, the longest tenure of any US air group at a UK base. In January 1943 the group led the Eighth Air Force's first raid on Germany."
     },
     {
-      "id": "glenn-miller-lost", "place": "twinwood", "era": "modern", "year": 1944, "yearLabel": "15 December 1944", "wiki": "RAF Twinwood Farm",
+      "id": "glenn-miller-lost", "place": "twinwood", "era": "modern", "year": 1944, "yearLabel": "15 December 1944", "wiki": "RAF Twinwood Farm", "themes": ["flight", "music"],
       "title": "Glenn Miller's last flight",
       "summary": "Glenn Miller boarded a Noorduyn Norseman at Twinwood Farm for France on the afternoon of 15 December 1944. The aircraft was never seen again. The restored control tower is now the Glenn Miller Museum."
     },
     {
-      "id": "rae-bedford", "place": "thurleigh", "era": "modern", "year": 1946, "yearLabel": "1946–94", "wiki": "RAE Bedford",
+      "id": "rae-bedford", "place": "thurleigh", "era": "modern", "year": 1946, "yearLabel": "1946–94", "wiki": "RAE Bedford", "themes": ["flight"],
       "title": "Royal Aircraft Establishment, Bedford",
       "summary": "The wartime airfield became a research site of the Royal Aircraft Establishment, where much early work towards the Harrier and the aircraft-carrier ski jump was done. It closed in 1994 and is now Bedford Autodrome."
     },
     {
-      "id": "santa-pod-opens", "place": "santa-pod", "era": "modern", "year": 1966, "yearLabel": "1966",
+      "id": "santa-pod-opens", "place": "santa-pod", "era": "modern", "year": 1966, "yearLabel": "1966", "themes": ["flight"],
       "title": "Santa Pod Raceway opens",
       "summary": "Europe's first permanent drag-racing venue opened at Easter 1966 on the former RAF Podington, a wartime base of the USAAF's 92nd Bomb Group. It hosts rounds of the European Drag Racing Championship."
     }

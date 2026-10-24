@@ -1,13 +1,19 @@
-import { eventById, events } from './data';
+import { eventById, events, periodOf } from './data';
 import type { HistoryEvent } from './types';
 
 export interface State {
   /** Id of the selected event. */
   selected: string;
-  /** Era filter, or null for all periods. */
+  /** Era filter, or null for all periods. Also zooms the timeline into the era. */
   era: string | null;
+  /** Sub-period of the era to filter to, or null for the whole era. */
+  period: string | null;
+  /** Theme filter, or null for every event. */
+  theme: string | null;
   query: string;
 }
+
+export type Filters = Pick<State, 'era' | 'period' | 'theme'>;
 
 export type Listener = (state: State, prev: State) => void;
 
@@ -38,8 +44,15 @@ export function selectedEvent(s: State): HistoryEvent {
   return eventById.get(s.selected)!;
 }
 
+/** Whether an event passes the era, period and theme filters. */
+export function matches(f: Filters, ev: HistoryEvent): boolean {
+  return (!f.era || ev.era === f.era)
+    && (!f.period || periodOf(ev)?.id === f.period)
+    && (!f.theme || !!ev.themes?.includes(f.theme));
+}
+
 export function visibleEvents(s: State): HistoryEvent[] {
-  return s.era ? events.filter((e) => e.era === s.era) : events;
+  return events.filter((e) => matches(s, e));
 }
 
 export function neighbours(s: State): { prev?: HistoryEvent; next?: HistoryEvent } {
@@ -48,23 +61,39 @@ export function neighbours(s: State): { prev?: HistoryEvent; next?: HistoryEvent
   return { prev: list[i - 1], next: list[i + 1] };
 }
 
-/** Select an event, dropping the era filter if it would hide it. */
+/** Select an event, dropping any filter that would hide it. */
 export function selectEvent(store: Store, id: string): void {
   const ev = eventById.get(id);
   if (!ev) return;
-  const { era } = store.get();
-  store.set({ selected: id, era: era && era !== ev.era ? null : era });
+  const s = store.get();
+  const era = s.era === ev.era ? s.era : null;
+  store.set({
+    selected: id,
+    era,
+    period: era && s.period === periodOf(ev)?.id ? s.period : null,
+    theme: s.theme && ev.themes?.includes(s.theme) ? s.theme : null,
+  });
 }
 
-/** Filter to an era, moving the selection into it if necessary. */
-export function selectEra(store: Store, era: string | null): void {
+/**
+ * Change filters, moving the selection into what's left if necessary. A
+ * theme with nothing in the new era is dropped; filters that would leave
+ * nothing at all are ignored.
+ */
+export function setFilters(store: Store, patch: Partial<Filters>): void {
   const s = store.get();
-  if (era && selectedEvent(s).era !== era) {
-    const first = events.find((e) => e.era === era);
-    store.set({ era, selected: first?.id ?? s.selected });
-  } else {
-    store.set({ era });
-  }
+  const f: Filters = { era: s.era, period: s.period, theme: s.theme, ...patch };
+  if (patch.era !== undefined && patch.period === undefined && patch.era !== s.era) f.period = null;
+  if (f.theme && !events.some((e) => matches(f, e))) f.theme = null;
+  const list = events.filter((e) => matches(f, e));
+  if (!list.length) return;
+  const keep = list.some((e) => e.id === s.selected);
+  store.set({ ...f, selected: keep ? s.selected : list[0].id });
+}
+
+/** Filter to an era, zooming the timeline into it. */
+export function selectEra(store: Store, era: string | null): void {
+  setFilters(store, { era, period: null });
 }
 
 /** Move through visible events in time order; false at either end. */

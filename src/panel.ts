@@ -1,6 +1,6 @@
-import { eraOf, eraSpan, eventsAt, placeOf, search, wikiUrl } from './data';
+import { eraOf, eraSpan, eventsAt, periodOf, placeOf, search, themeById, themesOf, wikiUrl } from './data';
 import type { MapView } from './map';
-import { neighbours, selectEvent, selectedEvent, type State, type Store } from './state';
+import { neighbours, selectEvent, selectedEvent, setFilters, visibleEvents, type State, type Store } from './state';
 import type { HistoryEvent } from './types';
 import { esc, icons } from './util';
 
@@ -66,8 +66,8 @@ function credit(p: Photo): string {
   return `<a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.author)}</a>, ${license}`;
 }
 
-function eventButton(ev: HistoryEvent, extra = ''): string {
-  return `<button type="button" class="event-link" data-event="${esc(ev.id)}">
+function eventButton(ev: HistoryEvent, extra = '', current = false): string {
+  return `<button type="button" class="event-link" data-event="${esc(ev.id)}"${current ? ' aria-current="true"' : ''}>
     <span class="dot" style="background:${eraOf(ev).color}"></span>
     <span><strong>${esc(ev.yearLabel)}</strong> · ${esc(ev.title)}${extra}</span>
   </button>`;
@@ -79,13 +79,22 @@ function details(s: State): string {
   const era = eraOf(ev);
   const { prev, next } = neighbours(s);
   const others = eventsAt(place.id).filter((e) => e.id !== ev.id);
+  const period = periodOf(ev);
+  const theme = s.theme ? themeById.get(s.theme)! : null;
   const links = [place.wiki, ev.wiki].filter((t, i, all): t is string => !!t && all.indexOf(t) === i);
+  const filtered = [s.era && era.name, s.period && period?.name].filter(Boolean).join(', ');
 
   return `
+    ${theme ? `<section class="theme-banner">
+      <p class="theme-label">Following a theme</p>
+      <h2>${esc(theme.name)}</h2>
+      <p>${esc(theme.summary)}</p>
+      <button type="button" class="theme-clear" data-theme="">Stop following</button>
+    </section>` : ''}
     <figure class="photo"><span class="photo-empty">${esc(place.name)}</span></figure>
     <header class="place-head">
       <h1>${esc(place.name)}</h1>
-      <p class="meta"><span class="dot" style="background:${era.color}"></span>${esc(era.name)} · ${esc(ev.yearLabel)}</p>
+      <p class="meta"><span class="dot" style="background:${era.color}"></span>${esc(era.name)}${period ? ` · ${esc(period.name)}` : ''} · ${esc(ev.yearLabel)}</p>
     </header>
     <div class="actions">
       <a class="action primary" href="${wikiUrl(ev.wiki ?? place.wiki)}" target="_blank" rel="noopener">
@@ -96,18 +105,24 @@ function details(s: State): string {
     <section class="event">
       <h2>${esc(ev.title)}</h2>
       <p>${esc(ev.summary)}</p>
+      ${themesOf(ev).length ? `<div class="theme-chips"><span class="muted">Themes</span>
+        ${themesOf(ev).map((t) => `<button type="button" class="theme-chip" data-theme="${esc(t.id)}"
+            aria-pressed="${s.theme === t.id}">${esc(t.name)}</button>`).join('')}</div>` : ''}
     </section>
     <ul class="rows">
       <li>${icons.pin}<span>${esc(place.where)}${place.approx ? ' <em>(approximate location)</em>' : ''}</span></li>
-      <li>${icons.calendar}<span>${esc(ev.yearLabel)} · ${esc(era.name)} (${eraSpan(era)})</span></li>
+      <li>${icons.calendar}<span>${esc(ev.yearLabel)} · ${esc(era.name)} (${eraSpan(era)})${period ? ` · ${esc(period.name)} (${eraSpan(period)})` : ''}</span></li>
       ${links.map((t) => `<li>${icons.external}<a href="${wikiUrl(t)}" target="_blank" rel="noopener">Wikipedia: ${esc(t)}</a></li>`).join('')}
     </ul>
     ${others.length ? `<section class="list"><h2>Also at this place</h2>${others.map((e) => eventButton(e)).join('')}</section>` : ''}
-    <section class="list">
-      <h2>Through time${s.era ? ` <span class="muted">· ${esc(era.name)} only</span>` : ''}</h2>
+    ${theme ? `<section class="list">
+      <h2>${esc(theme.name)} through time${filtered ? ` <span class="muted">· ${esc(filtered)} only</span>` : ''}</h2>
+      ${visibleEvents(s).map((e) => eventButton(e, '', e.id === ev.id)).join('')}
+    </section>` : `<section class="list">
+      <h2>Through time${filtered ? ` <span class="muted">· ${esc(filtered)} only</span>` : ''}</h2>
       ${prev ? eventButton(prev) : ''}
       ${next ? eventButton(next) : ''}
-    </section>`;
+    </section>`}`;
 }
 
 function results(s: State): string {
@@ -145,9 +160,13 @@ export function createPanel(el: HTMLElement, store: Store, mapView: MapView): vo
   });
 
   body.addEventListener('click', async (e) => {
-    const target = (e.target as HTMLElement).closest<HTMLElement>('[data-event], [data-action]');
+    const target = (e.target as HTMLElement).closest<HTMLElement>('[data-event], [data-action], [data-theme]');
     if (!target) return;
-    if (target.dataset.event) {
+    if (target.dataset.theme !== undefined) {
+      // Follow a theme across every era; pressing it again stops.
+      const theme = target.dataset.theme && target.dataset.theme !== store.get().theme ? target.dataset.theme : null;
+      setFilters(store, theme ? { theme, era: null, period: null } : { theme: null });
+    } else if (target.dataset.event) {
       if (store.get().query) clearSearch();
       selectEvent(store, target.dataset.event);
     } else if (target.dataset.action === 'zoom') {
@@ -180,7 +199,8 @@ export function createPanel(el: HTMLElement, store: Store, mapView: MapView): vo
   }
 
   store.subscribe((s, prev) => {
-    if (s.selected !== prev.selected || s.era !== prev.era || s.query !== prev.query) render(s);
+    if (s.selected !== prev.selected || s.era !== prev.era || s.period !== prev.period
+      || s.theme !== prev.theme || s.query !== prev.query) render(s);
   });
   render(store.get());
 }

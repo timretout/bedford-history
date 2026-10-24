@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { eraOf, eventsAt, places } from './data';
-import { selectEvent, selectedEvent, type State, type Store } from './state';
+import { matches, selectEvent, selectedEvent, type State, type Store } from './state';
 import { esc } from './util';
 
 const START: L.LatLngTuple = [52.1362, -0.4655];
@@ -54,7 +54,7 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     const marker = L.marker([place.lat, place.lng], { title: place.name, alt: place.name, riseOnHover: true });
     marker.on('click', () => {
       const s = store.get();
-      const here = eventsAt(place.id).filter((e) => !s.era || e.era === s.era);
+      const here = eventsAt(place.id).filter((e) => matches(s, e));
       if (!here.length) return;
       // Clicking the selected place again cycles through its events.
       const i = here.findIndex((e) => e.id === s.selected);
@@ -67,7 +67,7 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     const sel = selectedEvent(s);
     for (const place of places) {
       const marker = markers.get(place.id)!;
-      const here = eventsAt(place.id).filter((e) => !s.era || e.era === s.era);
+      const here = eventsAt(place.id).filter((e) => matches(s, e));
       if (!here.length) {
         marker.remove();
         continue;
