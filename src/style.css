@@ -85,6 +85,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3);
 }
 .chip:hover { background: #f8f9fa; }
+.chip-scroll { display: contents; }
 .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); }
 
 /* Side panel */
@@ -228,12 +229,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 @media (max-width: 767px) {
   .app { position: static; overflow: visible; display: flex; flex-direction: column; }
   .map { position: relative; height: 55vh; }
-  .chips {
-    top: 12px; left: 12px; right: 0; flex-wrap: nowrap; overflow-x: auto;
-    pointer-events: auto; padding-bottom: 4px; scrollbar-width: none;
+  .chips { top: 12px; left: 12px; right: 0; flex-wrap: nowrap; }
+  /* The eras scroll beside "All periods", cut off at its edge. */
+  .chip-scroll {
+    display: flex; gap: 8px; flex: 1; min-width: 0; overflow-x: auto;
+    padding-bottom: 4px; scrollbar-width: none; pointer-events: auto;
   }
-  /* "All periods" stays put while the eras scroll under it. */
-  .chip[data-era=""] { position: sticky; left: 0; z-index: 1; }
   .leaflet-top.leaflet-right { top: 56px; right: 2px; }
   .timeline {
     position: relative; left: auto; right: auto; bottom: auto; order: 2;

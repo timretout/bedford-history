@@ -4,11 +4,12 @@ import { esc } from './util';
 
 export function createChips(el: HTMLElement, store: Store): void {
   const options = [{ id: '', name: 'All periods', color: '#5f6368' }, ...eras];
-  el.innerHTML = options
-    .map((o) => `<button type="button" class="chip" data-era="${esc(o.id)}" aria-pressed="false">
-        <span class="dot" style="background:${o.color}"></span>${esc(o.name)}</button>`)
-    .join('');
+  const chip = (o: (typeof options)[number]) => `<button type="button" class="chip" data-era="${esc(o.id)}" aria-pressed="false">
+      <span class="dot" style="background:${o.color}"></span>${esc(o.name)}</button>`;
+  // "All periods" sits outside the eras' scroller, so on phones they scroll beside it rather than under it.
+  el.innerHTML = `${chip(options[0])}<div class="chip-scroll">${options.slice(1).map(chip).join('')}</div>`;
   const chips = [...el.querySelectorAll<HTMLElement>('.chip')];
+  const scroller = el.querySelector<HTMLElement>('.chip-scroll')!;
 
   el.addEventListener('click', (e) => {
     const chip = (e.target as HTMLElement).closest<HTMLElement>('.chip');
@@ -20,12 +21,10 @@ export function createChips(el: HTMLElement, store: Store): void {
     document.documentElement.style.setProperty('--accent', era.color);
     for (const chip of chips) chip.setAttribute('aria-pressed', String((chip.dataset.era || null) === s.era));
     if (s.era === prev?.era) return;
-    // On phones the chips scroll sideways: bring the selected era up beside "All periods".
-    const chip = chips[options.indexOf(era)];
-    const all = chips[0];
-    // Measure on screen: "All periods" is sticky, so its offsetLeft moves as the chips scroll.
-    const left = s.era ? el.scrollLeft + chip.getBoundingClientRect().left - all.getBoundingClientRect().right - 8 : 0;
-    el.scrollTo({ left, behavior: prev ? 'smooth' : 'auto' });
+    // On phones the eras scroll sideways: bring the selected one to the start, beside "All periods".
+    const selected = chips[options.indexOf(era)];
+    const left = s.era ? scroller.scrollLeft + selected.getBoundingClientRect().left - scroller.getBoundingClientRect().left : 0;
+    scroller.scrollTo({ left, behavior: prev ? 'smooth' : 'auto' });
   }
 
   store.subscribe(render);
