@@ -242,3 +242,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .panel-body { overflow: visible; }
   .leaflet-bottom.leaflet-right { bottom: 32px; }
 }
+
+/* Switch between the modern map and OpenHistoricalMap for the selected event's year. */
+.map-toggle {
+  display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px 0 10px;
+  border: 1px solid var(--line); border-radius: 18px; background: var(--surface);
+  box-shadow: var(--shadow); font: 500 13px Roboto, Arial, sans-serif; color: var(--text-2); cursor: pointer;
+}
+.map-toggle:hover { background: var(--ground); }
+.map-toggle[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); }

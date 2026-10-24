@@ -1,8 +1,9 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { eraOf, eventsAt, places } from './data';
+import type { HistoricLayer } from './historic';
 import { matches, selectEvent, selectedEvent, type State, type Store } from './state';
-import { esc } from './util';
+import { esc, icons } from './util';
 
 const START: L.LatLngTuple = [52.1362, -0.4655];
 
@@ -27,6 +28,24 @@ function pinIcon(color: string, label: string | null, count: number): L.DivIcon 
   });
 }
 
+const HISTORIC_KEY = 'historic-map';
+
+function loadHistoric(): boolean {
+  try {
+    return localStorage.getItem(HISTORIC_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function saveHistoric(on: boolean): void {
+  try {
+    localStorage.setItem(HISTORIC_KEY, on ? '1' : '0');
+  } catch {
+    // Not remembered; the toggle still works for this visit.
+  }
+}
+
 /** Map padding that keeps markers clear of the floating panel and timeline. */
 function padding(): { paddingTopLeft: L.Point; paddingBottomRight: L.Point } {
   // The era chips can wrap onto several rows; leave room for a selected pin below them.
@@ -42,10 +61,41 @@ function padding(): { paddingTopLeft: L.Point; paddingBottomRight: L.Point } {
 export function createMap(el: HTMLElement, store: Store): MapView {
   const map = L.map(el, { zoomControl: false }).setView(START, 16);
   L.control.zoom({ position: 'bottomright' }).addTo(map);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  const modern = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
+  });
+
+  // OpenHistoricalMap, filtered to the selected event's year. Loaded on first use.
+  let historic: HistoricLayer | null = null;
+  let historicOn = loadHistoric();
+
+  async function setBase(on: boolean): Promise<void> {
+    historicOn = on;
+    toggle.setAttribute('aria-pressed', String(on));
+    if (on) {
+      historic ??= (await import('./historic')).createHistoricLayer();
+      if (!historicOn) return; // Toggled off again while loading.
+      modern.remove();
+      historic.layer.addTo(map);
+      historic.showYear(selectedEvent(store.get()).year);
+    } else {
+      historic?.layer.remove();
+      modern.addTo(map);
+    }
+  }
+
+  const toggle = L.DomUtil.create('button', 'map-toggle');
+  toggle.type = 'button';
+  toggle.innerHTML = `${icons.layers}<span>Historic map</span>`;
+  toggle.title = 'Show OpenHistoricalMap as it was at the selected event';
+  L.DomEvent.disableClickPropagation(toggle);
+  toggle.addEventListener('click', () => {
+    void setBase(!historicOn);
+    saveHistoric(historicOn);
+  });
+  new (L.Control.extend({ onAdd: () => toggle }))({ position: 'bottomright' }).addTo(map);
+  void setBase(historicOn);
 
   const markers = new Map<string, L.Marker>();
   const iconKeys = new Map<string, string>();
@@ -91,6 +141,7 @@ export function createMap(el: HTMLElement, store: Store): MapView {
 
   store.subscribe((s, prev) => {
     render(s);
+    if (historicOn) historic?.showYear(selectedEvent(s).year);
     if (selectedEvent(s).place !== selectedEvent(prev).place) reveal(s, true);
   });
   render(store.get());

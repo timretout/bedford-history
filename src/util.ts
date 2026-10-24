@@ -25,4 +25,5 @@ export const icons = {
   right: svg('<path d="M9 5l7 7-7 7"/>'),
   play: svg('<path d="M8 5l11 7-11 7z"/>', 'fill="currentColor"'),
   pause: svg('<path d="M7 5h3v14H7zM14 5h3v14h-3z"/>', 'fill="currentColor"'),
+  layers: svg('<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>'),
 };
