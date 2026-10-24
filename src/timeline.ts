@@ -1,9 +1,12 @@
 import { eraById, eraOf, eraSpan, eras, eventById, events, periodOf, timelinePosition, zoomedPosition } from './data';
-import { matches, selectEra, selectEvent, selectedEvent, setFilters, step, visibleEvents, type State, type Store } from './state';
+import type { MapView } from './map';
+import { matches, selectEra, selectEvent, selectedEvent, setFilters, step, stepEra, visibleEvents, type State, type Store } from './state';
 import type { Era, HistoryEvent } from './types';
 import { esc, icons } from './util';
 
 const PLAY_INTERVAL_MS = 2500;
+/** How far a finger or trackpad must move sideways to change era. */
+const SWIPE_PX = 50;
 
 /** Stack ticks that would overlap into extra rows. */
 function tickRows(list: HistoryEvent[], position: (ev: HistoryEvent) => number): Map<string, number> {
@@ -63,8 +66,8 @@ function crumbs(s: State): string {
       : `<strong>${esc(era.name)}</strong>`}`;
 }
 
-/** `onPick` is called when an event's tick is clicked, after it is selected. */
-export function createTimeline(el: HTMLElement, store: Store, onPick: (ev: HistoryEvent) => void): void {
+/** The map is passed lazily, as it is created after the timeline. */
+export function createTimeline(el: HTMLElement, store: Store, map: () => Pick<MapView, 'centreOn' | 'keepView'>): void {
   el.innerHTML = `
     <div class="tl-head">
       <button type="button" class="tl-play" aria-label="Play through time">${icons.play}</button>
@@ -103,6 +106,13 @@ export function createTimeline(el: HTMLElement, store: Store, onPick: (ev: Histo
     play.setAttribute('aria-label', 'Pause');
   });
 
+  // Changing era from the timeline leaves the map where it is.
+  const moveEra = (dir: 1 | -1) => map().keepView(() => stepEra(store, dir));
+  // Arrows step through events, carrying on into the next era at either end of one.
+  const move = (dir: 1 | -1) => {
+    if (!step(store, dir) && store.get().era) moveEra(dir);
+  };
+
   const zoomOut = () => {
     const s = store.get();
     if (s.period) setFilters(store, { period: null });
@@ -115,11 +125,11 @@ export function createTimeline(el: HTMLElement, store: Store, onPick: (ev: Histo
     const s = store.get();
     if (target.dataset.event) {
       selectEvent(store, target.dataset.event);
-      onPick(eventById.get(target.dataset.event)!);
+      map().centreOn(eventById.get(target.dataset.event)!.place);
     }
     else if (target.dataset.era) selectEra(store, target.dataset.era);
     else if (target.dataset.period) setFilters(store, { period: s.period === target.dataset.period ? null : target.dataset.period });
-    else if (target.dataset.step) step(store, Number(target.dataset.step) as 1 | -1);
+    else if (target.dataset.step) move(Number(target.dataset.step) as 1 | -1);
     else if (target.dataset.zoom === 'all') selectEra(store, null);
     else if (target.dataset.zoom === 'era') setFilters(store, { period: null });
   });
@@ -127,11 +137,41 @@ export function createTimeline(el: HTMLElement, store: Store, onPick: (ev: Histo
   el.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault();
-      step(store, e.key === 'ArrowRight' ? 1 : -1);
+      move(e.key === 'ArrowRight' ? 1 : -1);
     } else if (e.key === 'Escape') {
       zoomOut();
     }
   });
+
+  // Swipe the track sideways to move to the next or previous era.
+  let swipe: { x: number; y: number } | null = null;
+  trackEl.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') swipe = { x: e.clientX, y: e.clientY };
+  });
+  trackEl.addEventListener('pointerup', (e) => {
+    if (!swipe) return;
+    const dx = e.clientX - swipe.x;
+    const dy = e.clientY - swipe.y;
+    swipe = null;
+    if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > 2 * Math.abs(dy)) moveEra(dx < 0 ? 1 : -1);
+  });
+  trackEl.addEventListener('pointercancel', () => (swipe = null));
+
+  // Likewise a sideways trackpad scroll: one era per gesture, however long it coasts.
+  let scrolled = 0;
+  let scrolling: number | undefined;
+  el.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    clearTimeout(scrolling);
+    scrolling = window.setTimeout(() => (scrolled = 0), 250);
+    if (scrolled === Infinity) return;
+    scrolled += e.deltaX;
+    if (Math.abs(scrolled) > SWIPE_PX) {
+      moveEra(scrolled > 0 ? 1 : -1);
+      scrolled = Infinity;
+    }
+  }, { passive: false });
 
   function render(s: State): void {
     if (s.era !== zoomed) {
@@ -141,10 +181,11 @@ export function createTimeline(el: HTMLElement, store: Store, onPick: (ev: Histo
       // Grow out of (or shrink back into) the era's slot on the overview.
       const slot = into ? eras.indexOf(into) : from;
       trackEl.style.setProperty('--zoom-origin', `${((slot + 0.5) / eras.length) * 100}%`);
-      trackEl.classList.remove('zoom-in', 'zoom-out');
+      trackEl.classList.remove('zoom-in', 'zoom-out', 'slide-left', 'slide-right');
       if (zoomed !== undefined) {
         void trackEl.offsetWidth;
-        trackEl.classList.add(into ? 'zoom-in' : 'zoom-out');
+        // Between eras, slide across; otherwise grow into or out of the era.
+        trackEl.classList.add(into && from >= 0 ? (slot > from ? 'slide-left' : 'slide-right') : into ? 'zoom-in' : 'zoom-out');
       }
       zoomed = s.era;
     }

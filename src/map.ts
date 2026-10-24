@@ -8,11 +8,17 @@ import { esc, icons } from './util';
 const START: L.LatLngTuple = [52.1362, -0.4655];
 /** Bedford Borough with a generous margin; the map won't pan beyond it. */
 const BOUNDS = L.latLngBounds([51.95, -0.9], [52.42, -0.02]);
+/** Bedford Borough itself, for the overview. */
+const BOROUGH = L.latLngBounds([52.06, -0.67], [52.33, -0.3]);
 
 export interface MapView {
   zoomTo(placeId: string): void;
   /** Pan so the place sits in the middle of the area left clear by the panel and timeline. */
   centreOn(placeId: string): void;
+  /** Zoom out to show the whole borough. */
+  overview(): void;
+  /** Run `fn` without the map following the selection. */
+  keepView(fn: () => void): void;
 }
 
 function pinIcon(color: string, label: string | null, count: number): L.DivIcon {
@@ -177,10 +183,12 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     map.panInside(markers.get(selectedEvent(s).place)!.getLatLng(), { ...padding(), animate });
   }
 
+  let following = true;
+
   store.subscribe((s, prev) => {
     render(s);
     if (base === 'ohm') historic?.showYear(selectedEvent(s).year);
-    if (selectedEvent(s).place !== selectedEvent(prev).place) reveal(s, true);
+    if (following && selectedEvent(s).place !== selectedEvent(prev).place) reveal(s, true);
   });
   render(store.get());
   reveal(store.get(), false);
@@ -189,6 +197,17 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     zoomTo(placeId) {
       const marker = markers.get(placeId);
       if (marker) map.flyTo(marker.getLatLng(), 18);
+    },
+    overview() {
+      map.flyToBounds(BOROUGH, padding());
+    },
+    keepView(fn) {
+      following = false;
+      try {
+        fn();
+      } finally {
+        following = true;
+      }
     },
     centreOn(placeId) {
       const marker = markers.get(placeId);

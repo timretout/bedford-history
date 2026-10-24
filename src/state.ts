@@ -1,4 +1,4 @@
-import { eventById, events, periodOf } from './data';
+import { eras, eventById, events, periodOf } from './data';
 import type { HistoryEvent } from './types';
 
 export interface State {
@@ -94,6 +94,25 @@ export function setFilters(store: Store, patch: Partial<Filters>): void {
 /** Filter to an era, zooming the timeline into it. */
 export function selectEra(store: Store, era: string | null): void {
   setFilters(store, { era, period: null });
+}
+
+/**
+ * Move the era filter to the next or previous era that has events, selecting
+ * its first event going forwards or its last going back. With no era
+ * filter, moves on from the selected event's era. False at either end.
+ */
+export function stepEra(store: Store, dir: 1 | -1): boolean {
+  const s = store.get();
+  let i = eras.findIndex((e) => e.id === (s.era ?? selectedEvent(s).era));
+  for (i += dir; i >= 0 && i < eras.length; i += dir) {
+    const era = eras[i].id;
+    if (!events.some((e) => e.era === era)) continue;
+    setFilters(store, { era, period: null });
+    const list = visibleEvents(store.get());
+    store.set({ selected: (dir === 1 ? list[0] : list[list.length - 1]).id });
+    return true;
+  }
+  return false;
 }
 
 /** Move through visible events in time order; false at either end. */

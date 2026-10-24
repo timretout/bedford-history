@@ -33,8 +33,8 @@ const store = new Store({ selected: initial?.selected ?? DEFAULT_EVENT, era: nul
 if (initial) setFilters(store, initial.filters);
 
 // Timeline before the map: the map measures its height to keep markers in view.
-createChips(document.getElementById('chips')!, store);
-createTimeline(document.getElementById('timeline')!, store, (ev) => mapView.centreOn(ev.place));
+createChips(document.getElementById('chips')!, store, () => mapView.overview());
+createTimeline(document.getElementById('timeline')!, store, () => mapView);
 const mapView = createMap(document.getElementById('map')!, store);
 createPanel(document.getElementById('panel')!, store, mapView);
 

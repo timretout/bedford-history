@@ -55,7 +55,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   position: absolute; z-index: 1000; bottom: var(--gap);
   left: calc(var(--panel-w) + var(--gap)); right: var(--gap);
   background: var(--surface); border-radius: 12px; box-shadow: var(--shadow);
-  padding: 14px 20px 16px;
+  padding: 14px 20px 16px; overflow: hidden; /* Clips the track as it slides between eras. */
 }
 .leaflet-top.leaflet-right { top: 6px; right: 14px; z-index: 1001; } /* Above the era chips, for the base map menu. */
 .leaflet-bottom.leaflet-right { bottom: 150px; right: 14px; }
@@ -194,12 +194,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tl-crumb:hover { background: var(--accent-soft); }
 .tl-crumb svg { width: 16px; height: 16px; }
 
-.tl-track { position: relative; margin-top: 12px; transform-origin: var(--zoom-origin) 50%; }
+.tl-track { position: relative; margin-top: 12px; touch-action: pan-y; transform-origin: var(--zoom-origin) 50%; }
 .tl-track.zoom-in { animation: tl-zoom-in 0.35s ease-out; }
 .tl-track.zoom-out { animation: tl-zoom-out 0.35s ease-out; }
 @keyframes tl-zoom-in { from { transform: scaleX(0.1); opacity: 0; } }
 @keyframes tl-zoom-out { from { transform: scaleX(2.5); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .tl-track.zoom-in, .tl-track.zoom-out { animation: none; } }
+.tl-track.slide-left { animation: tl-slide-left 0.3s ease-out; }
+.tl-track.slide-right { animation: tl-slide-right 0.3s ease-out; }
+@keyframes tl-slide-left { from { transform: translateX(30%); opacity: 0; } }
+@keyframes tl-slide-right { from { transform: translateX(-30%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tl-track.zoom-in, .tl-track.zoom-out, .tl-track.slide-left, .tl-track.slide-right { animation: none; } }
 .tl-ticks { position: relative; height: calc(var(--tick-rows) * 14px); margin-bottom: 6px; }
 .tl-tick {
   position: absolute; top: calc(var(--row) * 14px); transform: translateX(-50%);

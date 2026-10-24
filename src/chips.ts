@@ -2,7 +2,8 @@ import { eras } from './data';
 import { selectEra, type State, type Store } from './state';
 import { esc } from './util';
 
-export function createChips(el: HTMLElement, store: Store): void {
+/** `onPick` is called when an era's chip is clicked, after it is selected. */
+export function createChips(el: HTMLElement, store: Store, onPick: () => void): void {
   const options = [{ id: '', name: 'All periods', color: '#5f6368' }, ...eras];
   const chip = (o: (typeof options)[number]) => `<button type="button" class="chip" data-era="${esc(o.id)}" aria-pressed="false">
       <span class="dot" style="background:${o.color}"></span>${esc(o.name)}</button>`;
@@ -13,7 +14,9 @@ export function createChips(el: HTMLElement, store: Store): void {
 
   el.addEventListener('click', (e) => {
     const chip = (e.target as HTMLElement).closest<HTMLElement>('.chip');
-    if (chip) selectEra(store, chip.dataset.era || null);
+    if (!chip) return;
+    selectEra(store, chip.dataset.era || null);
+    onPick();
   });
 
   function render(s: State, prev?: State): void {
