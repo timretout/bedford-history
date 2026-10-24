@@ -6,9 +6,10 @@
   --line-soft: #e8eaed;
   --surface: #ffffff;
   --ground: #f1f3f4;
-  --accent: #1a73e8;
-  --accent-soft: #e8f0fe;
-  --accent-text: #174ea6;
+  /* Follows the selected era; chips.ts sets it. */
+  --accent: #5f6368;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, white);
+  --accent-text: color-mix(in srgb, var(--accent) 80%, black);
   --shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
   --panel-w: 408px;
   --gap: 24px;
@@ -47,7 +48,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .chips {
   position: absolute; z-index: 1000; top: 16px;
-  left: calc(var(--panel-w) + var(--gap)); right: var(--gap);
+  left: calc(var(--panel-w) + var(--gap)); right: calc(var(--gap) + 48px);
   display: flex; flex-wrap: wrap; gap: 8px; pointer-events: none;
 }
 .timeline {
@@ -56,6 +57,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   background: var(--surface); border-radius: 12px; box-shadow: var(--shadow);
   padding: 14px 20px 16px;
 }
+.leaflet-top.leaflet-right { top: 6px; right: 14px; }
 .leaflet-bottom.leaflet-right { bottom: 150px; right: 14px; }
 .leaflet-control-attribution { font-size: 10px; }
 
@@ -228,8 +230,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .map { position: relative; height: 55vh; }
   .chips {
     top: 12px; left: 12px; right: 0; flex-wrap: nowrap; overflow-x: auto;
-    pointer-events: auto; padding-bottom: 4px;
+    pointer-events: auto; padding-bottom: 4px; scrollbar-width: none;
   }
+  /* "All periods" stays put while the eras scroll under it. */
+  .chip[data-era=""] { position: sticky; left: 0; z-index: 1; }
+  .leaflet-top.leaflet-right { top: 56px; right: 2px; }
   .timeline {
     position: relative; left: auto; right: auto; bottom: auto; order: 2;
     margin: -24px 12px 0; padding: 12px 14px;
@@ -243,11 +248,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .leaflet-bottom.leaflet-right { bottom: 32px; }
 }
 
-/* Switch between the modern map and OpenHistoricalMap for the selected event's year. */
-.map-toggle {
-  display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px 0 10px;
-  border: 1px solid var(--line); border-radius: 18px; background: var(--surface);
-  box-shadow: var(--shadow); font: 500 13px Roboto, Arial, sans-serif; color: var(--text-2); cursor: pointer;
+/* Base map choice: switches to OpenHistoricalMap for the selected event's year. */
+.map-toggle.leaflet-bar {
+  display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0;
+  background: var(--surface); color: var(--text-2); cursor: pointer;
 }
-.map-toggle:hover { background: var(--ground); }
-.map-toggle[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); }
+.map-toggle svg { width: 20px; height: 20px; }
+.map-toggle:hover { background: #f4f4f4; }
+.map-toggle[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-text); }

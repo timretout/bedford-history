@@ -34,7 +34,7 @@ if (initial) setFilters(store, initial.filters);
 
 // Timeline before the map: the map measures its height to keep markers in view.
 createChips(document.getElementById('chips')!, store);
-createTimeline(document.getElementById('timeline')!, store);
+createTimeline(document.getElementById('timeline')!, store, (ev) => mapView.centreOn(ev.place));
 const mapView = createMap(document.getElementById('map')!, store);
 createPanel(document.getElementById('panel')!, store, mapView);
 

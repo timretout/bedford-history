@@ -63,7 +63,8 @@ function crumbs(s: State): string {
       : `<strong>${esc(era.name)}</strong>`}`;
 }
 
-export function createTimeline(el: HTMLElement, store: Store): void {
+/** `onPick` is called when an event's tick is clicked, after it is selected. */
+export function createTimeline(el: HTMLElement, store: Store, onPick: (ev: HistoryEvent) => void): void {
   el.innerHTML = `
     <div class="tl-head">
       <button type="button" class="tl-play" aria-label="Play through time">${icons.play}</button>
@@ -112,7 +113,10 @@ export function createTimeline(el: HTMLElement, store: Store): void {
     const target = (e.target as HTMLElement).closest<HTMLElement>('[data-event], [data-era], [data-period], [data-step], [data-zoom]');
     if (!target) return;
     const s = store.get();
-    if (target.dataset.event) selectEvent(store, target.dataset.event);
+    if (target.dataset.event) {
+      selectEvent(store, target.dataset.event);
+      onPick(eventById.get(target.dataset.event)!);
+    }
     else if (target.dataset.era) selectEra(store, target.dataset.era);
     else if (target.dataset.period) setFilters(store, { period: s.period === target.dataset.period ? null : target.dataset.period });
     else if (target.dataset.step) step(store, Number(target.dataset.step) as 1 | -1);

@@ -6,9 +6,13 @@ import { matches, selectEvent, selectedEvent, type State, type Store } from './s
 import { esc, icons } from './util';
 
 const START: L.LatLngTuple = [52.1362, -0.4655];
+/** Bedford Borough with a generous margin; the map won't pan beyond it. */
+const BOUNDS = L.latLngBounds([51.95, -0.9], [52.42, -0.02]);
 
 export interface MapView {
   zoomTo(placeId: string): void;
+  /** Pan so the place sits in the middle of the area left clear by the panel and timeline. */
+  centreOn(placeId: string): void;
 }
 
 function pinIcon(color: string, label: string | null, count: number): L.DivIcon {
@@ -59,8 +63,8 @@ function padding(): { paddingTopLeft: L.Point; paddingBottomRight: L.Point } {
 }
 
 export function createMap(el: HTMLElement, store: Store): MapView {
-  const map = L.map(el, { zoomControl: false }).setView(START, 16);
-  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  const map = L.map(el, { zoomControl: false, maxBounds: BOUNDS, maxBoundsViscosity: 1, minZoom: 10 }).setView(START, 16);
+  L.control.zoom({ position: 'topright' }).addTo(map);
   const modern = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -85,16 +89,17 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     }
   }
 
-  const toggle = L.DomUtil.create('button', 'map-toggle');
+  const toggle = L.DomUtil.create('button', 'leaflet-bar map-toggle');
   toggle.type = 'button';
-  toggle.innerHTML = `${icons.layers}<span>Historic map</span>`;
-  toggle.title = 'Show OpenHistoricalMap as it was at the selected event';
+  toggle.innerHTML = icons.layers;
+  toggle.setAttribute('aria-label', 'OpenHistoricalMap');
+  toggle.title = 'OpenHistoricalMap: the map as it was at the selected event';
   L.DomEvent.disableClickPropagation(toggle);
   toggle.addEventListener('click', () => {
     void setBase(!historicOn);
     saveHistoric(historicOn);
   });
-  new (L.Control.extend({ onAdd: () => toggle }))({ position: 'bottomright' }).addTo(map);
+  new (L.Control.extend({ onAdd: () => toggle }))({ position: 'topright' }).addTo(map);
   void setBase(historicOn);
 
   const markers = new Map<string, L.Marker>();
@@ -151,6 +156,14 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     zoomTo(placeId) {
       const marker = markers.get(placeId);
       if (marker) map.flyTo(marker.getLatLng(), 18);
+    },
+    centreOn(placeId) {
+      const marker = markers.get(placeId);
+      if (!marker) return;
+      const { paddingTopLeft: tl, paddingBottomRight: br } = padding();
+      const zoom = map.getZoom();
+      const offset = L.point((tl.x - br.x) / 2, (tl.y - br.y) / 2);
+      map.flyTo(map.unproject(map.project(marker.getLatLng(), zoom).subtract(offset), zoom), zoom);
     },
   };
 }

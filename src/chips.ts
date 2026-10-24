@@ -15,8 +15,15 @@ export function createChips(el: HTMLElement, store: Store): void {
     if (chip) selectEra(store, chip.dataset.era || null);
   });
 
-  function render(s: State): void {
+  function render(s: State, prev?: State): void {
+    const era = options.find((o) => (o.id || null) === s.era)!;
+    document.documentElement.style.setProperty('--accent', era.color);
     for (const chip of chips) chip.setAttribute('aria-pressed', String((chip.dataset.era || null) === s.era));
+    if (s.era === prev?.era) return;
+    // On phones the chips scroll sideways: bring the selected era up beside "All periods".
+    const chip = chips[options.indexOf(era)];
+    const all = chips[0];
+    el.scrollTo({ left: s.era ? chip.offsetLeft - all.offsetLeft - all.offsetWidth - 8 : 0, behavior: prev ? 'smooth' : 'auto' });
   }
 
   store.subscribe(render);
