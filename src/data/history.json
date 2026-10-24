@@ -1,0 +1,121 @@
+{
+  "eras": [
+    { "id": "saxon", "name": "Anglo-Saxon", "from": 500, "to": 1066, "color": "#7b5ea7" },
+    { "id": "medieval", "name": "Medieval", "from": 1066, "to": 1485, "color": "#b3261e" },
+    { "id": "tudor", "name": "Tudor & Stuart", "from": 1485, "to": 1714, "color": "#c26401" },
+    { "id": "georgian", "name": "Georgian", "from": 1714, "to": 1837, "color": "#188038" },
+    { "id": "victorian", "name": "Victorian", "from": 1837, "to": 1901, "color": "#1a73e8" },
+    { "id": "modern", "name": "Modern", "from": 1901, "to": 2030, "color": "#3c4043" }
+  ],
+  "places": [
+    { "id": "st-pauls", "name": "St Paul's Church", "lat": 52.1354, "lng": -0.4668, "where": "St Paul's Square", "wiki": "St Paul's Church, Bedford" },
+    { "id": "castle", "name": "Bedford Castle", "lat": 52.1347, "lng": -0.4644, "where": "Castle Lane, by the river", "wiki": "Bedford Castle" },
+    { "id": "caldwell", "name": "Caldwell Priory", "lat": 52.12944, "lng": -0.47649, "where": "South bank, south-west Bedford", "wiki": "Caldwell Priory" },
+    { "id": "newnham", "name": "Newnham Priory", "lat": 52.14076, "lng": -0.44512, "where": "Newnham, east Bedford", "wiki": "Newnham Priory" },
+    { "id": "bedford-school", "name": "Bedford School", "lat": 52.1415, "lng": -0.46371, "where": "De Parys Avenue", "wiki": "Bedford School" },
+    { "id": "county-gaol", "name": "County Gaol", "lat": 52.1369, "lng": -0.4668, "approx": true, "where": "Corner of High Street and Silver Street", "wiki": "John Bunyan" },
+    { "id": "bunyan-meeting", "name": "Bunyan Meeting", "lat": 52.13662, "lng": -0.46356, "where": "Mill Street", "wiki": "John Bunyan Museum" },
+    { "id": "swan", "name": "The Swan Hotel", "lat": 52.1345, "lng": -0.4660, "approx": true, "where": "The Embankment, by the Town Bridge", "wiki": "Swan Hotel, Bedford" },
+    { "id": "town-bridge", "name": "Town Bridge", "lat": 52.1341, "lng": -0.4668, "approx": true, "where": "High Street, over the Great Ouse", "wiki": "Town Bridge, Bedford" },
+    { "id": "station", "name": "Bedford Midland station", "lat": 52.13639, "lng": -0.47944, "where": "Midland Road", "wiki": "Bedford railway station" },
+    { "id": "bunyan-statue", "name": "Bunyan Statue", "lat": 52.13881, "lng": -0.46667, "where": "St Peter's Green", "wiki": "Statue of John Bunyan, Bedford" },
+    { "id": "corn-exchange", "name": "Corn Exchange", "lat": 52.1360, "lng": -0.4674, "where": "St Paul's Square", "wiki": "Bedford Corn Exchange" },
+    { "id": "panacea", "name": "Panacea Society", "lat": 52.1354, "lng": -0.4614, "where": "Albany Road", "wiki": "Panacea Society" },
+    { "id": "cardington", "name": "Cardington Airfield", "lat": 52.10889, "lng": -0.4225, "where": "Shortstown, 3 miles south-east", "wiki": "Cardington Airfield" },
+    { "id": "higgins", "name": "The Higgins", "lat": 52.1361, "lng": -0.4642, "where": "Castle Lane", "wiki": "The Higgins Art Gallery & Museum" }
+  ],
+  "events": [
+    {
+      "id": "offa-buried", "place": "st-pauls", "era": "saxon", "year": 796, "yearLabel": "796",
+      "title": "Offa of Mercia buried in Bedford",
+      "summary": "The Mercian king Offa was buried in Bedford in 796. Tradition places the grave in his new minster, now St Paul's Church, or on the nearby bank of the Great Ouse.",
+      "wiki": "Offa of Mercia"
+    },
+    {
+      "id": "castle-built", "place": "castle", "era": "medieval", "year": 1100, "yearLabel": "after 1100",
+      "title": "Henry I builds Bedford Castle",
+      "summary": "Built after 1100 by Henry I and later extended in stone, the castle played a prominent part in the Anarchy and the First Barons' War."
+    },
+    {
+      "id": "caldwell-founded", "place": "caldwell", "era": "medieval", "year": 1154, "yearLabel": "c. 1154",
+      "title": "Caldwell Priory founded",
+      "summary": "A priory of Canons of the Holy Sepulchre on the south bank of the Great Ouse, in the south-west of the town. It lasted until 1536."
+    },
+    {
+      "id": "newnham-founded", "place": "newnham", "era": "medieval", "year": 1166, "yearLabel": "c. 1166",
+      "title": "Newnham Priory founded",
+      "summary": "Simon de Beauchamp, son of Payn, founded the priory at Newnham, east of the town, around 1166. Its first prior, William, was appointed that year."
+    },
+    {
+      "id": "castle-siege", "place": "castle", "era": "medieval", "year": 1224, "yearLabel": "1224",
+      "title": "Siege of Bedford Castle",
+      "summary": "Henry III besieged the castle after a dispute with Falkes de Bréauté. The siege lasted eight weeks and involved as many as 2,700 soldiers; after the surrender the king ordered the castle slighted. Part of the motte survives in an archaeological park."
+    },
+    {
+      "id": "school-founded", "place": "bedford-school", "era": "tudor", "year": 1552, "yearLabel": "1552",
+      "title": "Bedford School founded",
+      "summary": "Founded by royal charter in 1552, it is one of the oldest boys' schools in the United Kingdom and is run by the Harpur Trust."
+    },
+    {
+      "id": "bunyan-imprisoned", "place": "county-gaol", "era": "tudor", "year": 1660, "yearLabel": "1660–72",
+      "title": "John Bunyan imprisoned",
+      "summary": "Arrested for preaching in November 1660, Bunyan spent twelve years in the County Gaol on the corner of High Street and Silver Street. There he wrote Grace Abounding and began The Pilgrim's Progress."
+    },
+    {
+      "id": "bunyan-barn", "place": "bunyan-meeting", "era": "tudor", "year": 1672, "yearLabel": "1672",
+      "title": "Bunyan's congregation buys a barn",
+      "summary": "In 1672 the congregation led by Bunyan bought a barn here for worship. The present Bunyan Meeting church was built on the site in 1849, and the John Bunyan Museum opened beside it in 1998."
+    },
+    {
+      "id": "swan-rebuilt", "place": "swan", "era": "georgian", "year": 1795, "yearLabel": "mid-1790s",
+      "title": "The Swan rebuilt for the Duke of Bedford",
+      "summary": "The 5th Duke of Bedford had Henry Holland replace the old Swan Inn with a Neoclassical building, serving as both hotel and Whig political headquarters. Its staircase came from the demolished Houghton House at Ampthill."
+    },
+    {
+      "id": "bridge-built", "place": "town-bridge", "era": "georgian", "year": 1813, "yearLabel": "1811–13",
+      "title": "The Town Bridge is rebuilt",
+      "summary": "John Wing designed the present bridge, replacing a medieval one said to date from 1224 and built with stone from the castle. It was widened in 1938–40."
+    },
+    {
+      "id": "railway-arrives", "place": "station", "era": "victorian", "year": 1857, "yearLabel": "1857",
+      "title": "The Midland Railway reaches Bedford",
+      "summary": "The first station opened in 1857 on the Leicester to Hitchin line; the extension to London St Pancras followed in 1868. The present station, about 100 m north of the original, opened in 1978."
+    },
+    {
+      "id": "corn-exchange-opens", "place": "corn-exchange", "era": "victorian", "year": 1874, "yearLabel": "1874",
+      "title": "The Corn Exchange opens",
+      "summary": "Designed by John Ladds and William Powell in the Italianate style, the new Corn Exchange replaced a smaller one of 1850 and was opened by the 9th Duke of Bedford on 15 April 1874."
+    },
+    {
+      "id": "bunyan-statue", "place": "bunyan-statue", "era": "victorian", "year": 1874, "yearLabel": "1874",
+      "title": "Bunyan statue unveiled",
+      "summary": "Sir Joseph Edgar Boehm's bronze of John Bunyan was unveiled on 10 June 1874, a gift to the town from the 9th Duke of Bedford."
+    },
+    {
+      "id": "panacea-founded", "place": "panacea", "era": "modern", "year": 1919, "yearLabel": "1919",
+      "title": "The Panacea Society is founded",
+      "summary": "Mabel Barltrop founded the society at 12 Albany Road, following the prophetess Joanna Southcott. Members believed Bedford was the original site of the Garden of Eden; their story is now told in the Panacea Museum."
+    },
+    {
+      "id": "r101-lost", "place": "cardington", "era": "modern", "year": 1930, "yearLabel": "1930",
+      "title": "R101 lost on its maiden voyage",
+      "summary": "Built at Cardington and at the time the world's largest flying craft, the airship R101 crashed in France on 5 October 1930 during its first overseas voyage, killing 48 people.",
+      "wiki": "R101"
+    },
+    {
+      "id": "st-pauls-broadcasts", "place": "st-pauls", "era": "modern", "year": 1941, "yearLabel": "1941",
+      "title": "St Paul's goes on air",
+      "summary": "With BBC departments evacuated to Bedford, St Paul's became home to the BBC's daily worship during the Second World War, and the 1941 National Day of Prayer service was broadcast from the church."
+    },
+    {
+      "id": "glenn-miller", "place": "corn-exchange", "era": "modern", "year": 1944, "yearLabel": "1944",
+      "title": "Glenn Miller broadcasts from Bedford",
+      "summary": "The BBC Symphony Orchestra gave concerts here from 1941 to 1945, and Glenn Miller broadcast from the building with the American Band of the Supreme Headquarters Allied Expeditionary Force."
+    },
+    {
+      "id": "higgins-opens", "place": "higgins", "era": "modern", "year": 2013, "yearLabel": "2013",
+      "title": "The Higgins opens on the castle site",
+      "summary": "Bedford Gallery, the Cecil Higgins Art Gallery and Bedford Museum were joined into one building in the Castle Quarter, completed in June 2013."
+    }
+  ]
+}
