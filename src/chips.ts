@@ -23,7 +23,9 @@ export function createChips(el: HTMLElement, store: Store): void {
     // On phones the chips scroll sideways: bring the selected era up beside "All periods".
     const chip = chips[options.indexOf(era)];
     const all = chips[0];
-    el.scrollTo({ left: s.era ? chip.offsetLeft - all.offsetLeft - all.offsetWidth - 8 : 0, behavior: prev ? 'smooth' : 'auto' });
+    // Measure on screen: "All periods" is sticky, so its offsetLeft moves as the chips scroll.
+    const left = s.era ? el.scrollLeft + chip.getBoundingClientRect().left - all.getBoundingClientRect().right - 8 : 0;
+    el.scrollTo({ left, behavior: prev ? 'smooth' : 'auto' });
   }
 
   store.subscribe(render);
