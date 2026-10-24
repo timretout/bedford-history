@@ -72,7 +72,7 @@
     { "id": "caldwell", "name": "Caldwell Priory", "lat": 52.12944, "lng": -0.47649, "where": "South bank, south-west Bedford", "wiki": "Caldwell Priory" },
     { "id": "newnham", "name": "Newnham Priory", "lat": 52.14076, "lng": -0.44512, "where": "Newnham, east Bedford", "wiki": "Newnham Priory" },
     { "id": "bedford-school", "name": "Bedford School", "lat": 52.1415, "lng": -0.46371, "where": "De Parys Avenue", "wiki": "Bedford School" },
-    { "id": "county-gaol", "name": "County Gaol", "lat": 52.1369, "lng": -0.4668, "approx": true, "where": "High Street and Silver Street crossroads (which corner is uncertain)", "wiki": "John Bunyan" },
+    { "id": "county-gaol", "name": "County Gaol", "lat": 52.13715, "lng": -0.46705, "approx": true, "where": "North-west corner of High Street and Silver Street", "wiki": "John Bunyan" },
     { "id": "bunyan-meeting", "name": "Bunyan Meeting", "lat": 52.13662, "lng": -0.46356, "where": "Mill Street", "wiki": "John Bunyan Museum" },
     { "id": "swan", "name": "The Swan Hotel", "lat": 52.13506, "lng": -0.46505, "where": "The Embankment, by the Town Bridge", "wiki": "Swan Hotel, Bedford" },
     { "id": "town-bridge", "name": "Town Bridge", "lat": 52.13443, "lng": -0.46620, "where": "High Street, over the Great Ouse", "wiki": "Town Bridge, Bedford" },
@@ -220,7 +220,7 @@
     {
       "id": "bunyan-imprisoned", "place": "county-gaol", "era": "tudor", "year": 1660, "yearLabel": "1660–72", "themes": ["bunyan", "prisons"],
       "title": "John Bunyan imprisoned",
-      "summary": "Arrested for preaching in November 1660, Bunyan spent twelve years in the County Gaol at the corner of High Street and Silver Street. There he wrote Grace Abounding and began The Pilgrim's Progress."
+      "summary": "Arrested for preaching in November 1660, Bunyan spent twelve years in the County Gaol on the north-west corner of High Street and Silver Street. There he wrote Grace Abounding and began The Pilgrim's Progress."
     },
     {
       "id": "bunyan-barn", "place": "bunyan-meeting", "era": "tudor", "year": 1672, "yearLabel": "1672", "themes": ["bunyan"],
