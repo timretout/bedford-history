@@ -41,7 +41,28 @@
     { "id": "corn-exchange", "name": "Corn Exchange", "lat": 52.1360, "lng": -0.4674, "where": "St Paul's Square", "wiki": "Bedford Corn Exchange" },
     { "id": "panacea", "name": "Panacea Society", "lat": 52.13628, "lng": -0.46224, "where": "Albany Road", "wiki": "Panacea Society" },
     { "id": "cardington", "name": "Cardington Airfield", "lat": 52.10889, "lng": -0.4225, "where": "Shortstown, 3 miles south-east", "wiki": "Cardington Airfield" },
-    { "id": "higgins", "name": "The Higgins", "lat": 52.1361, "lng": -0.4642, "where": "Castle Lane", "wiki": "The Higgins Art Gallery & Museum" }
+    { "id": "higgins", "name": "The Higgins", "lat": 52.1361, "lng": -0.4642, "where": "Castle Lane", "wiki": "The Higgins Art Gallery & Museum" },
+    { "id": "kempston", "name": "Kempston", "lat": 52.114, "lng": -0.497, "approx": true, "where": "Town on the Great Ouse, 2 miles south-west", "wiki": "Kempston" },
+    { "id": "clapham-church", "name": "St Thomas's Church, Clapham", "lat": 52.16094, "lng": -0.48977, "where": "Clapham, 2 miles north", "wiki": "Church of St Thomas of Canterbury, Clapham, Bedfordshire" },
+    { "id": "stevington-church", "name": "St Mary's Church, Stevington", "lat": 52.1722, "lng": -0.55316, "where": "Church Road, Stevington", "wiki": "Church of St Mary, Stevington" },
+    { "id": "elstow-abbey", "name": "Elstow Abbey", "lat": 52.11493, "lng": -0.46934, "where": "Elstow, 2 miles south", "wiki": "Elstow Abbey" },
+    { "id": "harrold-priory", "name": "Harrold Priory", "lat": 52.19945, "lng": -0.60547, "approx": true, "where": "Harrold, 8 miles north-west", "wiki": "Harrold Priory" },
+    { "id": "melchbourne", "name": "Melchbourne Preceptory", "lat": 52.27126, "lng": -0.49245, "approx": true, "where": "South of the village, Melchbourne", "wiki": "Melchbourne Preceptory" },
+    { "id": "yielden-castle", "name": "Yielden Castle", "lat": 52.29161, "lng": -0.51492, "where": "Castle Hill, Yelden", "wiki": "Yielden Castle" },
+    { "id": "barford-bridge", "name": "Great Barford Bridge", "lat": 52.15081, "lng": -0.34296, "where": "Barford Road, over the Great Ouse", "wiki": "Great Barford Bridge" },
+    { "id": "elstow-moot-hall", "name": "Moot Hall, Elstow", "lat": 52.11604, "lng": -0.469, "where": "The Green, Elstow", "wiki": "Moot Hall, Elstow" },
+    { "id": "willington-dovecote", "name": "Willington Dovecote", "lat": 52.13695, "lng": -0.38458, "where": "Church End, Willington", "wiki": "Willington Dovecote and Stables" },
+    { "id": "turvey-abbey", "name": "Turvey Abbey", "lat": 52.16151, "lng": -0.618, "where": "Turvey, 7 miles west", "wiki": "Turvey Abbey" },
+    { "id": "bunyan-birthplace", "name": "Bunyan's birthplace", "lat": 52.11278, "lng": -0.44614, "approx": true, "where": "Bunyan's End, Harrowden", "wiki": "Elstow" },
+    { "id": "hinwick", "name": "Hinwick House", "lat": 52.24806, "lng": -0.63054, "where": "Hinwick, near Podington", "wiki": "Hinwick House" },
+    { "id": "colworth", "name": "Colworth House", "lat": 52.23042, "lng": -0.56579, "where": "Yelnow Lane, Sharnbrook", "wiki": "Colworth House" },
+    { "id": "cardington-village", "name": "Cardington", "lat": 52.1161, "lng": -0.4139, "approx": true, "where": "Village 3 miles south-east", "wiki": "Cardington, Bedfordshire" },
+    { "id": "milton-ernest-hall", "name": "Milton Ernest Hall", "lat": 52.19049, "lng": -0.51351, "where": "Milton Ernest, 5 miles north", "wiki": "Milton Ernest Hall" },
+    { "id": "kempston-barracks", "name": "Kempston Barracks", "lat": 52.12444, "lng": -0.48361, "where": "Kempston, south-west Bedford", "wiki": "Kempston Barracks" },
+    { "id": "stewartby", "name": "Stewartby", "lat": 52.0691, "lng": -0.5139, "where": "Model village in the Marston Vale", "wiki": "Stewartby" },
+    { "id": "thurleigh", "name": "RAF Thurleigh", "lat": 52.22972, "lng": -0.47472, "where": "North of Thurleigh, 5 miles north", "wiki": "RAF Thurleigh" },
+    { "id": "twinwood", "name": "Twinwood Farm", "lat": 52.1811, "lng": -0.48613, "where": "Twinwood Road, Clapham", "wiki": "RAF Twinwood Farm" },
+    { "id": "santa-pod", "name": "Santa Pod Raceway", "lat": 52.23897, "lng": -0.59464, "where": "Airfield Road, Podington", "wiki": "Santa Pod Raceway" }
   ],
   "events": [
     {
@@ -215,6 +236,121 @@
       "id": "higgins-opens", "place": "higgins", "era": "modern", "year": 2013, "yearLabel": "2013",
       "title": "The Higgins opens on the castle site",
       "summary": "Bedford Gallery, the Cecil Higgins Art Gallery and Bedford Museum were joined into one building in the Castle Quarter, completed in June 2013."
+    },
+    {
+      "id": "kempston-cemetery", "place": "kempston", "era": "saxon", "year": 550, "yearLabel": "6th century",
+      "title": "An Anglo-Saxon burial ground at Kempston",
+      "summary": "Kempston, recorded as Camestone in the Domesday Book, had a 6th-century Anglo-Saxon burial site. Its name may come from a Brittonic word for the bend in the Great Ouse it sits on."
+    },
+    {
+      "id": "clapham-tower", "place": "clapham-church", "era": "saxon", "year": 950, "yearLabel": "before 1000",
+      "title": "Clapham's Saxon tower",
+      "summary": "Clapham's church can be traced back before AD 1000, and its 26-metre tower is recognised as one of the most remarkable surviving examples of Anglo-Saxon building in England. The upper stage is early Norman; the rest of the church was rebuilt by George Gilbert Scott in 1861."
+    },
+    {
+      "id": "stevington-tower", "place": "stevington-church", "era": "saxon", "year": 960, "yearLabel": "10th century",
+      "title": "A church at Stevington",
+      "summary": "A first, probably wooden, church was built at Stevington between 886 and 1016, and the lowest third of the present tower likely dates from the early 10th century. The holy well beside it was credited with curing eye ailments in the Middle Ages."
+    },
+    {
+      "id": "odell-castle", "place": "odell", "era": "medieval", "year": 1068, "yearLabel": "after 1066", "wiki": "Odell Castle",
+      "title": "Odell Castle",
+      "summary": "After the Conquest, Walter de Wahul was given the manor and built a motte-and-bailey castle with a stone keep, home to his family for some 400 years. Ruined by 1633, it was rebuilt as a house that burnt down in 1931."
+    },
+    {
+      "id": "elstow-abbey-founded", "place": "elstow-abbey", "era": "medieval", "year": 1075, "yearLabel": "c. 1075",
+      "title": "Countess Judith founds Elstow Abbey",
+      "summary": "Judith, a niece of William the Conqueror, founded a Benedictine nunnery at Elstow. By 1538 it was the eighth richest nunnery in England; it was surrendered to Henry VIII in 1539, and part of its church survives as the parish church."
+    },
+    {
+      "id": "harrold-priory-founded", "place": "harrold-priory", "era": "medieval", "year": 1138, "yearLabel": "1138",
+      "title": "Harrold Priory founded",
+      "summary": "A small house of nuns of the Arrouaise order, first governed by a prior and canons, was established at Harrold in 1138. It was dissolved in 1536, after a visitor reported only a prioress and a handful of nuns."
+    },
+    {
+      "id": "melchbourne-preceptory", "place": "melchbourne", "era": "medieval", "year": 1160, "yearLabel": "1154–89",
+      "title": "The Knights Hospitaller at Melchbourne",
+      "summary": "Founded in the reign of Henry II with gifts from Alice de Clare, the preceptory held a general chapter of the Hospitallers in England in 1242. Its last remains were bulldozed in 1944 for a US servicemen's baseball ground."
+    },
+    {
+      "id": "yielden-castle", "place": "yielden-castle", "era": "medieval", "year": 1173, "yearLabel": "1173",
+      "title": "Yielden Castle",
+      "summary": "First recorded in 1173, this motte-and-bailey castle with two baileys was the stronghold of the Trailly family into the 13th century. It was in decay by 1360, and today only its earthworks remain."
+    },
+    {
+      "id": "barford-bridge-built", "place": "barford-bridge", "era": "medieval", "year": 1420, "yearLabel": "early 15th century",
+      "title": "Great Barford Bridge",
+      "summary": "The seventeen-arch bridge over the Great Ouse dates from the early 15th century, built from limestone and sandstone. It was widened in 1818 and again in brick in 1874, and is Grade I listed."
+    },
+    {
+      "id": "elstow-moot-hall", "place": "elstow-moot-hall", "era": "tudor", "year": 1500, "yearLabel": "c. 1500",
+      "title": "Elstow's Moot Hall",
+      "summary": "Built as a timber-framed market hall for Elstow Abbey, its upper room held the manorial court and the court of piepowders, which settled merchants' disputes. It has been a museum of John Bunyan and 17th-century life since 1951."
+    },
+    {
+      "id": "willington-dovecote", "place": "willington-dovecote", "era": "tudor", "year": 1541, "yearLabel": "c. 1541",
+      "title": "Sir John Gostwick's dovecote",
+      "summary": "Sir John Gostwick built a stone dovecote with nesting boxes for over 1,500 pigeons, and stables, probably reusing stone from Newnham Priory after the Dissolution. Both are now Grade I listed and owned by the National Trust."
+    },
+    {
+      "id": "turvey-abbey", "place": "turvey-abbey", "era": "tudor", "year": 1605, "yearLabel": "1603–08",
+      "title": "Turvey Abbey built",
+      "summary": "Despite its name, Turvey Abbey began as a house, dated 1605 and 1608 on its two façades. Catholic recusants lived there in the 17th century, and it is now home to a community of Benedictine nuns."
+    },
+    {
+      "id": "bunyan-born", "place": "bunyan-birthplace", "era": "tudor", "year": 1628, "yearLabel": "1628", "wiki": "John Bunyan",
+      "title": "John Bunyan born",
+      "summary": "Bunyan was born in 1628 at Bunyan's End, about halfway between the hamlet of Harrowden and Elstow's High Street. Elstow's Moot Hall was one of the places where he later developed his nonconformist ideas."
+    },
+    {
+      "id": "hinwick-built", "place": "hinwick", "era": "tudor", "year": 1709, "yearLabel": "1709–14",
+      "title": "Hinwick House built",
+      "summary": "Richard Orlebar built this Queen Anne house, modelled on Buckingham House, for himself and his wife, the culinary writer Diana Astry. The Orlebar family kept it until 1995; it served as a hospital for wounded soldiers in the First World War."
+    },
+    {
+      "id": "colworth-built", "place": "colworth", "era": "georgian", "year": 1715, "yearLabel": "1715",
+      "title": "Colworth House begun",
+      "summary": "Mark Antonie, a self-made man who aspired to join the landed gentry, started the house in 1715. Unilever bought it in 1947 and turned it into a research laboratory, still one of its main research centres."
+    },
+    {
+      "id": "howard-sheriff", "place": "cardington-village", "era": "georgian", "year": 1774, "yearLabel": "1774", "wiki": "John Howard (prison reformer)",
+      "title": "John Howard inspects the county gaol",
+      "summary": "Howard lived on an estate at Cardington, where he paid for the schooling of tenants' children. Made High Sheriff of Bedfordshire in 1774, he inspected the county prison himself, and what he found led to his 1777 exposé The State of the Prisons."
+    },
+    {
+      "id": "milton-ernest-hall", "place": "milton-ernest-hall", "era": "victorian", "year": 1856, "yearLabel": "1853–58",
+      "title": "Butterfield builds Milton Ernest Hall",
+      "summary": "The church architect William Butterfield designed the Gothic Revival hall for his brother-in-law Benjamin Starey; it is his only complete country house. In 1944 it became the US Eighth Air Force's support command headquarters, where Glenn Miller's band was stationed."
+    },
+    {
+      "id": "kempston-barracks", "place": "kempston-barracks", "era": "victorian", "year": 1876, "yearLabel": "1875–76",
+      "title": "Kempston Barracks completed",
+      "summary": "Built in the Fortress Gothic Revival style under the Cardwell Reforms, the barracks became the depot of the Bedfordshire Regiment and later the Bedfordshire and Hertfordshire Regiment. They closed in 1958."
+    },
+    {
+      "id": "stewartby-village", "place": "stewartby", "era": "modern", "year": 1926, "yearLabel": "1926",
+      "title": "A model village for brickmakers",
+      "summary": "The London Brick Company began a garden-village for its workers at Wootton Pillinge in 1926, later renamed Stewartby after the company's directors. Its brickworks was the largest in the world by output until it closed in 2008; the last chimneys came down in 2021."
+    },
+    {
+      "id": "thurleigh-306th", "place": "thurleigh", "era": "modern", "year": 1942, "yearLabel": "1942–45",
+      "title": "The 306th Bomb Group at Thurleigh",
+      "summary": "B-17s of the US 306th Bombardment Group arrived in September 1942 and stayed until December 1945, the longest tenure of any US air group at a UK base. In January 1943 the group led the Eighth Air Force's first raid on Germany."
+    },
+    {
+      "id": "glenn-miller-lost", "place": "twinwood", "era": "modern", "year": 1944, "yearLabel": "15 December 1944", "wiki": "RAF Twinwood Farm",
+      "title": "Glenn Miller's last flight",
+      "summary": "Glenn Miller boarded a Noorduyn Norseman at Twinwood Farm for France on the afternoon of 15 December 1944. The aircraft was never seen again. The restored control tower is now the Glenn Miller Museum."
+    },
+    {
+      "id": "rae-bedford", "place": "thurleigh", "era": "modern", "year": 1946, "yearLabel": "1946–94", "wiki": "RAE Bedford",
+      "title": "Royal Aircraft Establishment, Bedford",
+      "summary": "The wartime airfield became a research site of the Royal Aircraft Establishment, where much early work towards the Harrier and the aircraft-carrier ski jump was done. It closed in 1994 and is now Bedford Autodrome."
+    },
+    {
+      "id": "santa-pod-opens", "place": "santa-pod", "era": "modern", "year": 1966, "yearLabel": "1966",
+      "title": "Santa Pod Raceway opens",
+      "summary": "Europe's first permanent drag-racing venue opened at Easter 1966 on the former RAF Podington, a wartime base of the USAAF's 92nd Bomb Group. It hosts rounds of the European Drag Racing Championship."
     }
   ]
 }
