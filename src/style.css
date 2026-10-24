@@ -107,7 +107,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
   background: repeating-linear-gradient(135deg, var(--line-soft) 0 12px, var(--ground) 12px 24px);
   display: flex; align-items: center; justify-content: center;
 }
-.photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo img { position: relative; width: 100%; height: 100%; object-fit: contain; }
+.photo .photo-backdrop {
+  position: absolute; inset: -24px; width: calc(100% + 48px); height: calc(100% + 48px);
+  object-fit: cover; filter: blur(16px) brightness(0.75);
+}
 .photo-empty { color: var(--muted); font-size: 13px; }
 .photo figcaption {
   position: absolute; right: 8px; bottom: 8px; padding: 2px 8px; border-radius: 4px;

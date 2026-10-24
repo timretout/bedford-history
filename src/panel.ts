@@ -193,7 +193,9 @@ export function createPanel(el: HTMLElement, store: Store, mapView: MapView): vo
     photo(place.wiki).then((p) => {
       const figure = body.querySelector('.photo');
       if (!p || !figure || placeOf(selectedEvent(store.get())).id !== place.id) return;
-      figure.innerHTML = `<img src="${esc(p.src)}" alt="${esc(place.name)}">
+      // The whole picture, over a blurred copy of itself that fills the frame, so nothing is cropped.
+      figure.innerHTML = `<img class="photo-backdrop" src="${esc(p.src)}" alt="" aria-hidden="true">
+        <img src="${esc(p.src)}" alt="${esc(place.name)}">
         <figcaption>${credit(p)}</figcaption>`;
     });
   }
