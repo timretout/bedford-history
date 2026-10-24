@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bedford History — mobile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Roboto, Arial, sans-serif;color:#202124}
+a{color:#1a73e8}a:hover{color:#174ea6}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #f1f3f4; font-family: Roboto, Arial, sans-serif">
+
+  <svg width="1280" height="720" viewBox="0 0 1600 900" aria-hidden="true" style="position: absolute; left: -525px; top: -36px">
+    <defs>
+      <path id="pj1" d="M860,40 L860,520 L866,600 L960,900"/>
+      <path id="pj3" d="M860,382 L620,352 L0,392"/>
+      <path id="pj4" d="M876,206 L1200,236 L1600,262"/>
+      <path id="pj5" d="M876,528 L1250,680 L1600,800"/>
+      <path id="pn1" d="M860,360 L1130,348"/>
+      <path id="pn2" d="M900,462 C1000,468 1120,494 1250,512 C1380,532 1480,494 1600,480"/>
+      <path id="pn3" d="M990,0 L962,140 L876,204"/>
+      <path id="pn4" d="M860,190 L770,0"/>
+      <path id="pn6" d="M860,330 L740,330 L700,300 L700,150"/>
+      <path id="pn7" d="M860,420 L1010,420"/>
+      <path id="pn8" d="M1010,240 L1020,420"/>
+      <path id="pn9" d="M1110,244 L1118,350"/>
+      <path id="pn10" d="M700,360 L706,500"/>
+    </defs>
+    <rect width="1600" height="900" fill="#f1f3f4"/>
+    <g fill="#e8eaed">
+      <rect x="620" y="150" width="225" height="190" rx="6"/>
+      <rect x="878" y="225" width="310" height="115" rx="6"/>
+      <rect x="878" y="368" width="240" height="40" rx="6"/>
+    </g>
+    <g fill="#ceead6">
+      <path d="M1070,58 L1300,78 L1312,212 L1092,222 Z"/>
+      <circle cx="962" cy="446" r="30"/>
+      <path d="M920,510 C1050,512 1200,560 1350,566 L1346,600 C1200,594 1050,560 930,548 Z"/>
+    </g>
+    <path d="M790,520 C810,600 900,640 1000,640 C1080,640 1120,600 1140,535" fill="none" stroke="#aadaff" stroke-width="7" stroke-linecap="round"/>
+    <path d="M0,520 C180,500 340,570 520,540 C700,510 760,480 880,488 C1000,496 1120,520 1250,540 C1380,560 1480,520 1600,505" fill="none" stroke="#aadaff" stroke-width="30" stroke-linecap="round"/>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#dadce0" stroke-width="11"><use href="#pn1"/><use href="#pn2"/><use href="#pn3"/><use href="#pn4"/><use href="#pn6"/><use href="#pn7"/><use href="#pn8"/><use href="#pn9"/><use href="#pn10"/></g>
+      <g stroke="#ffffff" stroke-width="8"><use href="#pn1"/><use href="#pn2"/><use href="#pn3"/><use href="#pn4"/><use href="#pn6"/><use href="#pn7"/><use href="#pn8"/><use href="#pn9"/><use href="#pn10"/></g>
+      <g stroke="#e3b341" stroke-width="14"><use href="#pj1"/><use href="#pj3"/><use href="#pj4"/><use href="#pj5"/></g>
+      <g stroke="#fde293" stroke-width="10"><use href="#pj1"/><use href="#pj3"/><use href="#pj4"/><use href="#pj5"/></g>
+    </g>
+    <text x="874" y="250" font-family="Roboto, Arial, sans-serif" font-size="12" letter-spacing="1.5" fill="#70757a" transform="rotate(90 874 250)">HIGH STREET</text>
+    <text x="1000" y="345" font-family="Roboto, Arial, sans-serif" font-size="12" letter-spacing="1.5" fill="#70757a">MILL ST</text>
+  </svg>
+
+  <sc-for list="{{pins}}" as="p" hint-placeholder-count="10">
+    <button type="button" aria-label="{{p.aria}}" style="position: absolute; left: {{p.left}}px; top: {{p.top}}px; transform: translate(-50%, -100%); background: none; border: 0; padding: 0; line-height: 0">
+      <svg width="{{p.w}}" height="{{p.h}}" viewBox="0 0 24 32" aria-hidden="true"><path d="M12 31C12 31 2 18.5 2 11a10 10 0 0 1 20 0c0 7.5-10 20-10 20z" fill="{{p.color}}" stroke="#ffffff" stroke-width="1.5"></path><circle cx="12" cy="11" r="4" fill="#ffffff"></circle></svg>
+    </button>
+  </sc-for>
+  <div style="position: absolute; left: 262px; top: 290px; font-size: 13px; font-weight: 500; color: #b3261e; text-shadow: 0 0 3px #ffffff, 0 0 3px #ffffff, 0 0 3px #ffffff">Bedford Castle</div>
+
+  <form role="search" style="position: absolute; left: 12px; right: 12px; top: 12px; display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 6px 0 16px; border-radius: 24px; background: #ffffff; box-shadow: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px rgba(60,64,67,.15)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+    <label for="q3" class="sr-only">Search Bedford's history</label>
+    <input id="q3" type="search" placeholder="Search Bedford's history" style="flex: 1; min-width: 0; border: 0; outline: none; background: none; font: 400 16px Roboto, Arial, sans-serif; color: #202124">
+    <button type="button" aria-label="Map layers" style="width: 40px; height: 40px; border: 0; border-radius: 20px; background: none; color: #5f6368; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"></path><path d="M3 13l9 5 9-5"></path></svg></button>
+  </form>
+
+  <div role="toolbar" aria-label="Filter by period" style="position: absolute; left: 12px; top: 70px; right: 0; display: flex; gap: 8px; overflow: hidden">
+    <button type="button" aria-pressed="true" style="flex: none; height: 34px; padding: 0 14px; border: 1px solid #1a73e8; border-radius: 17px; background: #e8f0fe; color: #174ea6; font: 500 13px Roboto, Arial, sans-serif; box-shadow: 0 1px 2px rgba(60,64,67,.3)">All periods</button>
+    <button type="button" aria-pressed="false" style="flex: none; display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: 1px solid #dadce0; border-radius: 17px; background: #ffffff; color: #3c4043; font: 500 13px Roboto, Arial, sans-serif; box-shadow: 0 1px 2px rgba(60,64,67,.3)"><span style="width: 9px; height: 9px; border-radius: 50%; background: #7b5ea7"></span>Anglo-Saxon</button>
+    <button type="button" aria-pressed="false" style="flex: none; display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: 1px solid #dadce0; border-radius: 17px; background: #ffffff; color: #3c4043; font: 500 13px Roboto, Arial, sans-serif; box-shadow: 0 1px 2px rgba(60,64,67,.3)"><span style="width: 9px; height: 9px; border-radius: 50%; background: #b3261e"></span>Medieval</button>
+    <button type="button" aria-pressed="false" style="flex: none; display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: 1px solid #dadce0; border-radius: 17px; background: #ffffff; color: #3c4043; font: 500 13px Roboto, Arial, sans-serif; box-shadow: 0 1px 2px rgba(60,64,67,.3)"><span style="width: 9px; height: 9px; border-radius: 50%; background: #c26401"></span>Tudor &amp; Stuart</button>
+  </div>
+
+  <div style="position: absolute; left: 12px; right: 12px; top: 406px; display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 6px; border-radius: 26px; background: #ffffff; box-shadow: 0 1px 4px rgba(60,64,67,.35)">
+    <button type="button" aria-label="Previous event: 915" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 22px; background: none; color: #3c4043; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+    <span style="flex: none; font-size: 18px; font-weight: 700; color: #202124">1224</span>
+    <div style="position: relative; flex: 1; height: 8px; display: flex; gap: 2px">
+      <span style="flex: 1; background: #7b5ea7; border-radius: 4px 0 0 4px"></span>
+      <span style="flex: 1; background: #b3261e"></span>
+      <span style="flex: 1; background: #c26401"></span>
+      <span style="flex: 1; background: #188038"></span>
+      <span style="flex: 1; background: #1a73e8"></span>
+      <span style="flex: 1; background: #3c4043; border-radius: 0 4px 4px 0"></span>
+      <span style="position: absolute; left: 21%; top: -6px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; background: #ffffff; border: 2px solid #202124; box-sizing: border-box"></span>
+    </div>
+    <button type="button" aria-label="Next event: c. 1300" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 22px; background: none; color: #3c4043; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
+  </div>
+
+  <section aria-label="Bedford Castle" style="position: absolute; left: 0; right: 0; top: 472px; bottom: 64px; background: #ffffff; border-radius: 16px 16px 0 0; box-shadow: 0 -2px 8px rgba(60,64,67,.2); padding: 8px 20px 0; box-sizing: border-box; overflow: hidden">
+    <div style="width: 36px; height: 4px; border-radius: 2px; background: #dadce0; margin: 0 auto 12px"></div>
+    <h1 style="margin: 0; font-size: 22px; font-weight: 400; color: #202124">Bedford Castle</h1>
+    <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 14px; color: #5f6368"><span style="width: 9px; height: 9px; border-radius: 50%; background: #b3261e"></span>Medieval · 1224 · Siege of Bedford Castle</div>
+    <div style="display: flex; gap: 8px; margin-top: 14px">
+      <a href="https://en.wikipedia.org/wiki/Bedford_Castle" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 18px; background: #1a73e8; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"></path><path d="M5 17a3 3 0 0 1 3-3h11"></path></svg>Wikipedia</a>
+      <button type="button" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border: 1px solid #dadce0; border-radius: 18px; background: #ffffff; color: #1a73e8; font: 500 14px Roboto, Arial, sans-serif"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>Save</button>
+      <button type="button" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border: 1px solid #dadce0; border-radius: 18px; background: #ffffff; color: #1a73e8; font: 500 14px Roboto, Arial, sans-serif"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"></path></svg>Share</button>
+    </div>
+    <div style="display: flex; gap: 8px; margin-top: 14px">
+      <div style="flex: 1; height: 96px; border-radius: 8px; background: repeating-linear-gradient(135deg, #e8eaed 0 10px, #f1f3f4 10px 20px); display: flex; align-items: center; justify-content: center; font-size: 12px; color: #5f6368">[Photo — mound]</div>
+      <div style="flex: 1; height: 96px; border-radius: 8px; background: repeating-linear-gradient(135deg, #e8eaed 0 10px, #f1f3f4 10px 20px); display: flex; align-items: center; justify-content: center; font-size: 12px; color: #5f6368">[Engraving]</div>
+    </div>
+    <p style="margin: 14px 0 0; font-size: 14px; line-height: 20px; color: #3c4043">Built in the early 12th century by the Beauchamp family. In 1224 Henry III besieged it for eight weeks, then had it slighted.</p>
+  </section>
+
+  <nav aria-label="Main" style="position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: flex; background: #ffffff; border-top: 1px solid #e8eaed">
+    <a href="#explore" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; font-size: 12px; font-weight: 500; color: #174ea6">
+      <span style="display: flex; width: 56px; height: 28px; border-radius: 14px; background: #e8f0fe; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></span>Explore
+    </a>
+    <a href="#timeline" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; font-size: 12px; color: #3c4043">
+      <span style="display: flex; width: 56px; height: 28px; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h18"></path><circle cx="7" cy="12" r="2"></circle><circle cx="14" cy="12" r="2"></circle><path d="M7 5v3M14 16v3M19 5v3"></path></svg></span>Timeline
+    </a>
+    <a href="#saved" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; font-size: 12px; color: #3c4043">
+      <span style="display: flex; width: 56px; height: 28px; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg></span>Saved
+    </a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+var COLORS = { saxon: '#7b5ea7', medieval: '#b3261e', tudor: '#c26401', georgian: '#188038', victorian: '#1a73e8', modern: '#3c4043' };
+var PLACES = [
+  { id: 'stpauls', title: "St Paul's Church", era: 'medieval', x: 822, y: 432 },
+  { id: 'school', title: 'Bedford School', era: 'tudor', x: 975, y: 120 },
+  { id: 'gaol', title: 'County Gaol', era: 'tudor', x: 848, y: 330 },
+  { id: 'meeting', title: 'Bunyan Meeting', era: 'tudor', x: 1000, y: 354 },
+  { id: 'swan', title: 'The Swan Hotel', era: 'georgian', x: 908, y: 466 },
+  { id: 'bridge', title: 'Town Bridge', era: 'georgian', x: 860, y: 488 },
+  { id: 'statue', title: 'Bunyan Statue', era: 'victorian', x: 878, y: 212 },
+  { id: 'panacea', title: 'Panacea Society', era: 'modern', x: 1110, y: 262 },
+  { id: 'corn', title: 'Corn Exchange', era: 'modern', x: 765, y: 400 },
+  { id: 'castle', title: 'Bedford Castle', era: 'medieval', x: 960, y: 448 }
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      pins: PLACES.map(function (p) {
+        var on = p.id === 'castle';
+        return {
+          left: Math.round(p.x * 0.8 - 525), top: Math.round(p.y * 0.8 - 36),
+          w: on ? 34 : 24, h: on ? 45 : 32,
+          color: COLORS[p.era], aria: p.title
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
