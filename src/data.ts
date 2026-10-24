@@ -29,6 +29,9 @@ export function eventsAt(placeId: string): HistoryEvent[] {
 }
 
 export function eraSpan(era: Era): string {
+  if (era.span) return era.span;
+  if (era.to <= 0) return `${-era.from}–${-era.to} BC`;
+  if (era.from < 0) return `${-era.from} BC–AD ${era.to}`;
   return `${era.from}–${era.to >= new Date().getFullYear() ? 'now' : era.to}`;
 }
 

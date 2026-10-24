@@ -30,7 +30,7 @@ export function createTimeline(el: HTMLElement, store: Store): void {
         <button type="button" class="icon-btn" data-step="-1" aria-label="Previous event">${icons.left}</button>
         <button type="button" class="icon-btn" data-step="1" aria-label="Next event">${icons.right}</button>
       </div>
-      <span class="tl-note">AD 500 to today · each era drawn at equal width</span>
+      <span class="tl-note">Stone Age to today · each era drawn at equal width</span>
     </div>
     <div class="tl-track" style="--tick-rows:${rowCount}">
       <div class="tl-ticks">

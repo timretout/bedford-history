@@ -1,6 +1,10 @@
 {
   "eras": [
-    { "id": "saxon", "name": "Anglo-Saxon", "from": 500, "to": 1066, "color": "#7b5ea7" },
+    { "id": "stone", "name": "Stone Age", "from": -10000, "to": -2500, "span": "before 2500 BC", "color": "#8d6e63" },
+    { "id": "bronze", "name": "Bronze Age", "from": -2500, "to": -800, "color": "#9e7a1d" },
+    { "id": "iron", "name": "Iron Age", "from": -800, "to": 43, "color": "#00796b" },
+    { "id": "roman", "name": "Roman", "from": 43, "to": 410, "color": "#ad1457" },
+    { "id": "saxon", "name": "Anglo-Saxon", "from": 410, "to": 1066, "color": "#7b5ea7" },
     { "id": "medieval", "name": "Medieval", "from": 1066, "to": 1485, "color": "#b3261e" },
     { "id": "tudor", "name": "Tudor & Stuart", "from": 1485, "to": 1714, "color": "#c26401" },
     { "id": "georgian", "name": "Georgian", "from": 1714, "to": 1837, "color": "#188038" },
@@ -8,6 +12,21 @@
     { "id": "modern", "name": "Modern", "from": 1901, "to": 2030, "color": "#3c4043" }
   ],
   "places": [
+    { "id": "biddenham", "name": "Deep Spinney", "lat": 52.14143, "lng": -0.50500, "approx": true, "where": "Biddenham, west of Bedford", "wiki": "Biddenham" },
+    { "id": "oakley", "name": "Oakley", "lat": 52.17107, "lng": -0.52437, "where": "Village on the Great Ouse, 4 miles north-west", "wiki": "Oakley, Bedfordshire" },
+    { "id": "newnham-henge", "name": "Newnham henge", "lat": 52.14205, "lng": -0.42497, "where": "Under the Tesco store, Riverfield Drive", "wiki": "Newnham, Bedford" },
+    { "id": "kingsbrook", "name": "Kingsbrook Beaker burials", "lat": 52.11898, "lng": -0.45102, "where": "Beside the Bunyan Centre, Mile Road", "wiki": "Kingsbrook, Bedford" },
+    { "id": "roxton", "name": "Roxton barrow cemetery", "lat": 52.17629, "lng": -0.31543, "approx": true, "where": "Gravel pits by the Ouse, Roxton", "wiki": "Roxton, Bedfordshire" },
+    { "id": "wymington", "name": "Wymington", "lat": 52.26875, "lng": -0.60150, "where": "Village on the Northamptonshire border", "wiki": "Wymington" },
+    { "id": "mowsbury", "name": "Mowsbury Hillfort", "lat": 52.16722, "lng": -0.44208, "where": "Kimbolton Road, north Bedford", "wiki": "Mowsbury Hill" },
+    { "id": "bromham-lake", "name": "Bromham Lake", "lat": 52.15185, "lng": -0.50046, "where": "Lower Farm Road, Bromham", "wiki": "Bromham Lake" },
+    { "id": "colmworth", "name": "Colmworth", "lat": 52.21764, "lng": -0.37833, "where": "Colley Hill Farm, Colmworth", "approx": true, "wiki": "Colmworth" },
+    { "id": "great-barford", "name": "Great Barford", "lat": 52.15691, "lng": -0.34846, "where": "Village on the Great Ouse, 5 miles north-east", "wiki": "Great Barford" },
+    { "id": "odell", "name": "Odell", "lat": 52.20991, "lng": -0.59046, "where": "Village 7 miles north-west", "wiki": "Odell, Bedfordshire" },
+    { "id": "hanger-wood", "name": "Hanger Wood", "lat": 52.13401, "lng": -0.54504, "where": "East of Stagsden", "wiki": "Hanger Wood" },
+    { "id": "priory-park", "name": "Priory Country Park", "lat": 52.13228, "lng": -0.43060, "where": "Barkers Lane, Newnham", "wiki": "Priory Country Park" },
+    { "id": "radwell", "name": "Radwell", "lat": 52.20579, "lng": -0.53143, "where": "Gravel pits north of the village", "approx": true, "wiki": "Radwell, Bedfordshire" },
+    { "id": "grebe-lake", "name": "Grebe Lake", "lat": 52.20331, "lng": -0.59678, "where": "Harrold-Odell Country Park", "wiki": "Harrold-Odell Country Park" },
     { "id": "st-pauls", "name": "St Paul's Church", "lat": 52.1354, "lng": -0.4668, "where": "St Paul's Square", "wiki": "St Paul's Church, Bedford" },
     { "id": "castle", "name": "Bedford Castle", "lat": 52.13544, "lng": -0.46337, "where": "Castle Lane, by the river", "wiki": "Bedford Castle" },
     { "id": "caldwell", "name": "Caldwell Priory", "lat": 52.12944, "lng": -0.47649, "where": "South bank, south-west Bedford", "wiki": "Caldwell Priory" },
@@ -25,6 +44,86 @@
     { "id": "higgins", "name": "The Higgins", "lat": 52.1361, "lng": -0.4642, "where": "Castle Lane", "wiki": "The Higgins Art Gallery & Museum" }
   ],
   "events": [
+    {
+      "id": "biddenham-handaxes", "place": "biddenham", "era": "stone", "year": -10000, "yearLabel": "Palaeolithic",
+      "title": "Stone tools at Deep Spinney",
+      "summary": "Biddenham's earliest archaeology comes from the Palaeolithic site of Deep Spinney, among the first major Palaeolithic discoveries in England. The tools were probably carried there by glacial flow rather than left where people used them."
+    },
+    {
+      "id": "oakley-flints", "place": "oakley", "era": "stone", "year": -6500, "yearLabel": "c. 7000–6000 BC",
+      "title": "Mesolithic flints at Oakley",
+      "summary": "Flint axes and arrowheads found within the present village boundaries are dated to around 7000–6000 BC, some of the earliest evidence of people at Oakley. Iron Age remains were later found when the almshouses were built."
+    },
+    {
+      "id": "newnham-henge", "place": "newnham-henge", "era": "stone", "year": -3000, "yearLabel": "4000–2000 BC",
+      "title": "A henge at Newnham",
+      "summary": "A Neolithic henge stood on the site of today's Tesco supermarket on Riverfield Drive, built some time between 4000 and 2000 BC. There is little sign of any major prehistoric settlement around it."
+    },
+    {
+      "id": "kingsbrook-beaker", "place": "kingsbrook", "era": "bronze", "year": -2300, "yearLabel": "Late Neolithic–early Bronze Age",
+      "title": "Beaker burials at Kingsbrook",
+      "summary": "Excavations in 1995 beside the Bunyan Centre uncovered a late Neolithic or early Bronze Age settlement and ritual site, with three skeletons and a complete Beaker pot."
+    },
+    {
+      "id": "roxton-barrows", "place": "roxton", "era": "bronze", "year": -1800, "yearLabel": "Bronze Age",
+      "title": "Barrow cemetery at Roxton",
+      "summary": "A Bronze Age barrow cemetery of five ring ditches was excavated in the 1970s ahead of gravel extraction near the Ouse, revealing two urned cremation burials. The site is now a lake."
+    },
+    {
+      "id": "wymington-hoard", "place": "wymington", "era": "bronze", "year": -1000, "yearLabel": "Bronze Age",
+      "title": "Hoard of 60 bronze axes",
+      "summary": "In the 1860s a hoard of 60 socketed axes was found on a farm near Wymington, possibly the stock of a bronze smith. Flint tools also point to Neolithic and Bronze Age settlement in the area."
+    },
+    {
+      "id": "mowsbury-hillfort", "place": "mowsbury", "era": "iron", "year": -600, "yearLabel": "Early Iron Age",
+      "title": "Mowsbury hillfort",
+      "summary": "Excavation has shown Mowsbury Hill to be a univallate hillfort, ringed by a single rampart, with pottery dating it to the early Iron Age. It was occupied only for a short time; in the Middle Ages the site became a moated manor."
+    },
+    {
+      "id": "bromham-roundhouse", "place": "bromham-lake", "era": "iron", "year": -300, "yearLabel": "Iron Age",
+      "title": "An Iron Age house at Bromham",
+      "summary": "Quarrying for sand, gravel and limestone between 1969 and 1975 uncovered an Iron Age house. The pit has since been restored as a lake and nature reserve."
+    },
+    {
+      "id": "colmworth-settlement", "place": "colmworth", "era": "iron", "year": -200, "yearLabel": "Middle–late Iron Age",
+      "title": "Settlement at Colley Hill Farm",
+      "summary": "Archaeologists working at Colley Hill Farm in 2011 found a Middle and Late Iron Age settlement, judged to be of local and regional significance."
+    },
+    {
+      "id": "great-barford-enclosures", "place": "great-barford", "era": "iron", "year": -100, "yearLabel": "Iron Age",
+      "title": "Enclosures and trackways at Great Barford",
+      "summary": "Excavations show Great Barford was settled long before the Middle Ages, with Iron Age enclosures and trackways marking out a farmed landscape, along with cremation cemeteries and burials."
+    },
+    {
+      "id": "odell-farm", "place": "odell", "era": "iron", "year": 0, "yearLabel": "Before AD 43",
+      "title": "A farm at Odell",
+      "summary": "Just before the Roman invasion a farm stood at Odell: two round timber buildings inside a fenced enclosure, with two cremation pits. Its later prosperity may have been tied to the Roman presence at nearby Irchester."
+    },
+    {
+      "id": "hanger-wood-settlement", "place": "hanger-wood", "era": "roman", "year": 60, "yearLabel": "Late Iron Age–Roman",
+      "title": "Settlement by Hanger Wood",
+      "summary": "Trial digs before Stagsden Golf Course was built found a late Iron Age and Romano-British settlement: a ditched enclosure, pits, a possible hearth, pottery and an animal burial. Much of the surrounding woodland was cleared in this period."
+    },
+    {
+      "id": "wymington-roman", "place": "wymington", "era": "roman", "year": 200, "yearLabel": "1st–5th century",
+      "title": "Roman enclosures at Wymington",
+      "summary": "Cropmarks, ditches, roof tiles and pottery about 700 metres south of the village mark a complex of enclosures probably dating from the 1st to 5th century. Third-century pottery, coins, a quern and jewellery have been found to the north-west."
+    },
+    {
+      "id": "priory-farmstead", "place": "priory-park", "era": "roman", "year": 220, "yearLabel": "Roman",
+      "title": "Roman farmstead by the Ouse",
+      "summary": "A Roman farmstead near the river was excavated in the 1970s before gravel extraction created what is now Priory Country Park. Roman bricks from it survive in the wall beside the marina, alongside stones from Newnham Priory."
+    },
+    {
+      "id": "radwell-farmstead", "place": "radwell", "era": "roman", "year": 240, "yearLabel": "Roman",
+      "title": "Roman farmstead at Radwell",
+      "summary": "Gravel digging north of Radwell exposed a Roman field and ditch system and the remains of two timber buildings, probably a farmstead."
+    },
+    {
+      "id": "grebe-lake-farmstead", "place": "grebe-lake", "era": "roman", "year": 250, "yearLabel": "3rd century",
+      "title": "Roman farmstead at Grebe Lake",
+      "summary": "The land between Harrold and Odell has been settled since at least the 3rd century, when a Roman farmstead stood where Grebe Lake is now."
+    },
     {
       "id": "offa-buried", "place": "st-pauls", "era": "saxon", "year": 796, "yearLabel": "796",
       "title": "Offa of Mercia buried in Bedford",

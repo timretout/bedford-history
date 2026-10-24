@@ -29,12 +29,14 @@ function pinIcon(color: string, label: string | null, count: number): L.DivIcon 
 
 /** Map padding that keeps markers clear of the floating panel and timeline. */
 function padding(): { paddingTopLeft: L.Point; paddingBottomRight: L.Point } {
+  // The era chips can wrap onto several rows; leave room for a selected pin below them.
+  const top = (document.getElementById('chips')?.getBoundingClientRect().bottom ?? 64) + 56;
   if (!matchMedia('(min-width: 768px)').matches) {
-    return { paddingTopLeft: L.point(24, 72), paddingBottomRight: L.point(24, 24) };
+    return { paddingTopLeft: L.point(24, top), paddingBottomRight: L.point(24, 24) };
   }
   const panel = document.getElementById('panel')?.offsetWidth ?? 0;
   const timeline = document.getElementById('timeline')?.offsetHeight ?? 0;
-  return { paddingTopLeft: L.point(panel + 48, 80), paddingBottomRight: L.point(80, timeline + 64) };
+  return { paddingTopLeft: L.point(panel + 48, top), paddingBottomRight: L.point(80, timeline + 64) };
 }
 
 export function createMap(el: HTMLElement, store: Store): MapView {

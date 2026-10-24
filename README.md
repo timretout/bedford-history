@@ -30,7 +30,7 @@ Pushes to `main` deploy to GitHub Pages via `.github/workflows/deploy.yml`.
   from that state.
 
 The timeline gives each era equal width, so recent centuries aren't
-squashed into a sliver next to the Anglo-Saxon period.
+squashed into a sliver next to ten thousand years of prehistory.
 
 ## Adding history
 

@@ -3,6 +3,8 @@ export interface Era {
   name: string;
   from: number;
   to: number;
+  /** Display form of the date range, when the dates alone would mislead. */
+  span?: string;
   color: string;
 }
 
