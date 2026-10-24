@@ -32,21 +32,29 @@ function pinIcon(color: string, label: string | null, count: number): L.DivIcon 
   });
 }
 
-const HISTORIC_KEY = 'historic-map';
+/** Base maps to choose between in the layers menu. */
+const BASES = [
+  { id: 'osm', name: 'OpenStreetMap', note: 'Today' },
+  { id: 'ohm', name: 'OpenHistoricalMap', note: 'As it was at the selected event' },
+] as const;
+type BaseId = (typeof BASES)[number]['id'];
 
-function loadHistoric(): boolean {
+const BASE_KEY = 'base-map';
+
+function loadBase(): BaseId {
   try {
-    return localStorage.getItem(HISTORIC_KEY) === '1';
+    const id = localStorage.getItem(BASE_KEY);
+    return BASES.find((b) => b.id === id)?.id ?? 'osm';
   } catch {
-    return false;
+    return 'osm';
   }
 }
 
-function saveHistoric(on: boolean): void {
+function saveBase(id: BaseId): void {
   try {
-    localStorage.setItem(HISTORIC_KEY, on ? '1' : '0');
+    localStorage.setItem(BASE_KEY, id);
   } catch {
-    // Not remembered; the toggle still works for this visit.
+    // Not remembered; the choice still applies for this visit.
   }
 }
 
@@ -72,14 +80,14 @@ export function createMap(el: HTMLElement, store: Store): MapView {
 
   // OpenHistoricalMap, filtered to the selected event's year. Loaded on first use.
   let historic: HistoricLayer | null = null;
-  let historicOn = loadHistoric();
+  let base = loadBase();
 
-  async function setBase(on: boolean): Promise<void> {
-    historicOn = on;
-    toggle.setAttribute('aria-pressed', String(on));
-    if (on) {
+  async function setBase(id: BaseId): Promise<void> {
+    base = id;
+    for (const input of inputs) input.checked = input.value === id;
+    if (id === 'ohm') {
       historic ??= (await import('./historic')).createHistoricLayer();
-      if (!historicOn) return; // Toggled off again while loading.
+      if (base !== 'ohm') return; // Changed again while loading.
       modern.remove();
       historic.layer.addTo(map);
       historic.showYear(selectedEvent(store.get()).year);
@@ -89,18 +97,43 @@ export function createMap(el: HTMLElement, store: Store): MapView {
     }
   }
 
-  const toggle = L.DomUtil.create('button', 'leaflet-bar map-toggle');
-  toggle.type = 'button';
-  toggle.innerHTML = icons.layers;
-  toggle.setAttribute('aria-label', 'OpenHistoricalMap');
-  toggle.title = 'OpenHistoricalMap: the map as it was at the selected event';
-  L.DomEvent.disableClickPropagation(toggle);
-  toggle.addEventListener('click', () => {
-    void setBase(!historicOn);
-    saveHistoric(historicOn);
+  // Layers button with a menu of base maps.
+  const control = L.DomUtil.create('div', 'leaflet-bar map-layers');
+  control.innerHTML = `
+    <button type="button" class="map-layers-btn" aria-label="Base map" title="Base map" aria-expanded="false" aria-controls="map-layers-menu">${icons.layers}</button>
+    <fieldset id="map-layers-menu" class="map-layers-menu" hidden>
+      <legend>Base map</legend>
+      ${BASES.map((b) => `<label><input type="radio" name="base-map" value="${b.id}">
+        <span>${b.name}<small>${b.note}</small></span></label>`).join('')}
+    </fieldset>`;
+  const button = control.querySelector<HTMLButtonElement>('.map-layers-btn')!;
+  const menu = control.querySelector<HTMLElement>('.map-layers-menu')!;
+  const inputs = [...control.querySelectorAll<HTMLInputElement>('input')];
+  L.DomEvent.disableClickPropagation(control);
+  L.DomEvent.disableScrollPropagation(control);
+
+  const setOpen = (open: boolean) => {
+    menu.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+  };
+  button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+  control.addEventListener('change', (e) => {
+    const id = (e.target as HTMLInputElement).value as BaseId;
+    void setBase(id);
+    saveBase(id);
+    setOpen(false);
   });
-  new (L.Control.extend({ onAdd: () => toggle }))({ position: 'topright' }).addTo(map);
-  void setBase(historicOn);
+  control.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) {
+      setOpen(false);
+      button.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!control.contains(e.target as Node)) setOpen(false);
+  });
+  new (L.Control.extend({ onAdd: () => control }))({ position: 'topright' }).addTo(map);
+  void setBase(base);
 
   const markers = new Map<string, L.Marker>();
   const iconKeys = new Map<string, string>();
@@ -146,7 +179,7 @@ export function createMap(el: HTMLElement, store: Store): MapView {
 
   store.subscribe((s, prev) => {
     render(s);
-    if (historicOn) historic?.showYear(selectedEvent(s).year);
+    if (base === 'ohm') historic?.showYear(selectedEvent(s).year);
     if (selectedEvent(s).place !== selectedEvent(prev).place) reveal(s, true);
   });
   render(store.get());

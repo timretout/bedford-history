@@ -57,7 +57,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   background: var(--surface); border-radius: 12px; box-shadow: var(--shadow);
   padding: 14px 20px 16px;
 }
-.leaflet-top.leaflet-right { top: 6px; right: 14px; }
+.leaflet-top.leaflet-right { top: 6px; right: 14px; z-index: 1001; } /* Above the era chips, for the base map menu. */
 .leaflet-bottom.leaflet-right { bottom: 150px; right: 14px; }
 .leaflet-control-attribution { font-size: 10px; }
 
@@ -250,10 +250,23 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 /* Base map choice: switches to OpenHistoricalMap for the selected event's year. */
-.map-toggle.leaflet-bar {
+.map-layers { position: relative; background: var(--surface); }
+.map-layers-btn {
   display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0;
-  background: var(--surface); color: var(--text-2); cursor: pointer;
+  border: 0; border-radius: 4px; background: none; color: var(--text-2);
 }
-.map-toggle svg { width: 20px; height: 20px; }
-.map-toggle:hover { background: #f4f4f4; }
-.map-toggle[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-text); }
+.map-layers-btn svg { width: 20px; height: 20px; }
+.map-layers-btn:hover, .map-layers-btn[aria-expanded="true"] { background: var(--accent-soft); color: var(--accent-text); }
+.map-layers-menu {
+  position: absolute; top: 0; right: calc(100% + 8px); width: 230px; margin: 0; padding: 8px 0;
+  border: 0; border-radius: 8px; background: var(--surface); box-shadow: var(--shadow);
+  font: 14px Roboto, Arial, sans-serif; color: var(--text);
+}
+.map-layers-menu legend {
+  float: left; width: 100%; padding: 4px 16px 6px;
+  font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em;
+}
+.map-layers-menu label { clear: both; display: flex; align-items: flex-start; gap: 10px; padding: 8px 16px; cursor: pointer; }
+.map-layers-menu label:hover { background: var(--ground); }
+.map-layers-menu input { margin: 2px 0 0; accent-color: var(--accent); }
+.map-layers-menu small { display: block; font-size: 12px; color: var(--muted); }
